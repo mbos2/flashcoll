@@ -4,11 +4,11 @@ import { ClerkService } from '../service/clerk';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  styleUrls: ['./home.component.sass'],
+  providers: [{ provide: Window, useValue: window } ],
 })
 export class HomeComponent implements OnInit {
-  constructor(private clerkClient: ClerkService) {}
   ngOnInit(): void {
-    console.log(this.clerkClient.clerkObject); //this returns undefined // TODO: to remove this comment
+    console.log(window);
   }  
 }

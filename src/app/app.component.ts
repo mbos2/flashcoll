@@ -4,8 +4,7 @@ import { ClerkService } from './service/clerk';
   providedIn: 'root',
 })
 @Component({
-  selector: 'app-root',
-  providers: [{ provide: Window, useValue: window } ],
+  selector: 'app-root',  
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })

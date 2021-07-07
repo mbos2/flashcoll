@@ -7,6 +7,7 @@ import { ClerkService } from './service/clerk';
 import { AboutComponent } from './about/about.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
 
 let clerkService: any;
 async function clerk () {
@@ -20,6 +21,7 @@ async function clerk () {
     AboutComponent,
     NavigationComponent,
     HomeComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
