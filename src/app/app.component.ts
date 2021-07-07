@@ -9,11 +9,7 @@ import { ClerkService } from './service/clerk';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
 
-  constructor(private clerkClient: ClerkService) {}
-  ngOnInit(): void {
-    console.log(this.clerkClient.clerkObject); //this returns undefined // TODO: to remove this comment
-  }  
 }
 

@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClerkService } from './service/clerk';
+import { AboutComponent } from './about/about.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { HomeComponent } from './home/home.component';
 
 let clerkService: any;
 async function clerk () {
@@ -14,6 +17,9 @@ async function clerk () {
 @NgModule({
   declarations: [
     AppComponent,
+    AboutComponent,
+    NavigationComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
