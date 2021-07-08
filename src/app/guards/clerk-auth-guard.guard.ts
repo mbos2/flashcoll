@@ -8,9 +8,9 @@ import { ClerkService } from '@service/clerk-service/clerk';
 })
 export class ClerkAuthGuardGuard implements CanActivate {
   constructor(clerkService: ClerkService) {
-    console.log(window);
+    console.log(window); // returns window object with Clerk present
     // @ts-ignore
-    console.log(window.Clerk);
+    console.log(window.Clerk); // returns undefined
   }
   canActivate(
     route: ActivatedRouteSnapshot,
