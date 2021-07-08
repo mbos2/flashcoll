@@ -5,13 +5,14 @@ import { Injectable } from '@angular/core';
 })
 export class ClerkService {  
 
+  getClerk: any;
   async clerk() {
     // @ts-ignore
     const clerkObject = window.Clerk;
-    console.log(clerkObject); // returns Clerk object in the console // TODO: To remove this comment
     try {
       // Load Clerk environment & session if available
       await clerkObject.load();
+      this.getClerk = clerkObject;
       // window.MyClerk = clerkObject;
       const userButtonEl = document.getElementById('user-button');
       const authLinks = document.getElementById('auth-links');
@@ -34,5 +35,9 @@ export class ClerkService {
     script.src = `https://${frontendApi}/npm/@clerk/clerk-js@1/dist/clerk.browser.js`;
     script.addEventListener('load', await this.clerk);
     document.body.appendChild(script);  
-  }  
+  }
+
+  get CLERK_OBJECT() {
+    return this.getClerk;
+  }
 }
