@@ -8,17 +8,17 @@ export class ClerkService {
   getClerk: any;
   async clerk() {
     // @ts-ignore
-    const clerkObject = window.Clerk;
+    this.getClerk = window.Clerk;
     try {
       // Load Clerk environment & session if available
-      await clerkObject.load();
-      this.getClerk = clerkObject;
-      // window.MyClerk = clerkObject;
+      await this.getClerk.load();
+      // @ts-ignore
+      console.log(window.Clerk);
       const userButtonEl = document.getElementById('user-button');
       const authLinks = document.getElementById('auth-links');
-      if (clerkObject.user) {
+      if (this.getClerk.user) {
         // Mount user button component
-        clerkObject.mountUserButton(userButtonEl);
+        this.getClerk.mountUserButton(userButtonEl);
         // @ts-ignore
         authLinks.style.display = 'none';
       }
@@ -35,9 +35,5 @@ export class ClerkService {
     script.src = `https://${frontendApi}/npm/@clerk/clerk-js@1/dist/clerk.browser.js`;
     script.addEventListener('load', await this.clerk);
     document.body.appendChild(script);  
-  }
-
-  get CLERK_OBJECT() {
-    return this.getClerk;
   }
 }

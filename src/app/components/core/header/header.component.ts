@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClerkService } from '@service/clerk-service/clerk';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(clerkService: ClerkService) {
+    // console.log(clerkService.IsClerkUserActive);
+  }
 
   ngOnInit(): void {
   }

@@ -8,6 +8,9 @@ import { NavigationComponent } from './components/core/navigation/navigation.com
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/core/header/header.component';
 import { IndexComponent } from './pages/auth/index/index.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatTabsModule} from '@angular/material/tabs';
 
 let clerkService: any;
 async function clerk () {
@@ -21,11 +24,16 @@ async function clerk () {
     NavigationComponent,
     HomeComponent,
     HeaderComponent,
-    IndexComponent,
+    IndexComponent,    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatTabsModule
+  ],
+  exports: [
+  
   ],
   providers: [{
     provide: APP_INITIALIZER,
