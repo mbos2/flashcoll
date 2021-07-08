@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Injectable, } from '@angular/core';
-import { ClerkService } from './service/clerk';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,6 +12,5 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
 
   }
-
 }
 

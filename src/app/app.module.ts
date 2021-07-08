@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClerkService } from './service/clerk';
-import { AboutComponent } from './about/about.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
+import { ClerkService } from './service/clerk-service/clerk';
+import { NavigationComponent } from './components/core/navigation/navigation.component';
+import { HomeComponent } from './pages/home/home.component';
+import { HeaderComponent } from './components/core/header/header.component';
+import { SignupComponent } from './signup/signup.component';
 
 let clerkService: any;
 async function clerk () {
@@ -18,10 +18,10 @@ async function clerk () {
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
     NavigationComponent,
     HomeComponent,
     HeaderComponent,
+    SignupComponent,   
   ],
   imports: [
     BrowserModule,
