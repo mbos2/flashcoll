@@ -25,13 +25,16 @@ export class ClerkService {
         // @ts-ignore
         authLinks.style.display = 'none';
       }
+
+      let label = document.querySelector("._2c8hnvnVYOPx6EA7w5iOQs");
+      console.log(label);
     } catch (err) {
       console.error('Clerk: ', err);
     }
   }
 
   async initClerk() {
-    const frontendApi = 'clerk.yvfqy.3fp0d.lcl.dev';
+    const frontendApi = 'clerk.g6v9y.5r22c.lcl.dev';
     const script = document.createElement('script');
     script.setAttribute('data-clerk-frontend-api', frontendApi);
     script.async = true;
@@ -40,5 +43,3 @@ export class ClerkService {
     document.body.appendChild(script);  
   }  
 }
-
-// export let CLERK_CLIENT = new InjectionToken<ClerkService>('app.clerkClient');

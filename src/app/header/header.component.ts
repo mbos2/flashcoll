@@ -12,4 +12,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  testLabel() {
+    let label = document.querySelector('_2c8hnvnVYOPx6EA7w5iOQs');
+    console.log(label);
+  }
+
 }
