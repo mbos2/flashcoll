@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {fromEvent, ReplaySubject} from "rxjs";
-import {tap, take, concatMap} from "rxjs/operators";
+import {from, fromEvent, Observable, ReplaySubject} from "rxjs";
+import {tap, take, concatMap, map, distinctUntilChanged} from "rxjs/operators";
 import {WindowRef} from "./window.service";
-import type {SignInProps, SignUpProps, Clerk as ClerkBase} from '@clerk/types'
+import type {SignInProps, SignUpProps, Clerk as ClerkBase, UserResource} from '@clerk/types'
 
 type Clerk = ClerkBase & {
   load: () => Promise<void>
@@ -23,8 +23,25 @@ declare global {
 export class ClerkService {
   private readonly _loadedClerk$ = new ReplaySubject<Clerk>(1);
 
+  public get user$(): Observable<UserResource | null> {
+    const user$ = new ReplaySubject<UserResource | undefined | null>(1);
+
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.addListener(({user}) => user$.next(user));
+    })
+
+    return user$.asObservable().pipe(
+      map(user => !!user ? user : null),
+      distinctUntilChanged()
+    )
+  }
+
   constructor(private windowRef: WindowRef) {
     this.loadClerkJS().subscribe();
+  }
+
+  public signOut() {
+    this._loadedClerk$.pipe(concatMap((clerk) => clerk.signOut())).subscribe();
   }
 
   public mountSignIn(targetElement: HTMLDivElement, props?: SignInProps) {
