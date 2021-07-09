@@ -1,27 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { ClerkService } from '@service/clerk-service/clerk';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ClerkService} from "../../services/clerk.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass'],
-  providers: [{ provide: Window, useValue: window }],
+  providers: [{provide: Window, useValue: window}],
 })
 export class HomeComponent implements OnInit {
-  loginContainer: any;
-  constructor() {
-     //@ts-ignore
-    console.log(window);
-   }
+  @ViewChild('signInContainer') private signInContainer: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild('signUpContainer') private signUpContainer: ElementRef<HTMLDivElement> | undefined;
 
-  ngOnInit(): void { 
-    let signin = document.getElementById('sign-in');
-    // let signup = document.getElementById('sign-up');
-     //@ts-ignore
-    console.log(signin, window.Clerk);
-     //@ts-ignore
-    window.Clerk.mountSignIn(signin);
-      //@ts-ignore
-    // window.Clerk.mountSignUp(signup);
+  constructor(private clerk: ClerkService) { }
+
+  ngAfterViewInit() {
+    // "Make sure to call these in/after `ngAfterViewInit`, otherwise the @ViewChild props will be undefined"
+    if (this.signInContainer) {
+      this.clerk.mountSignIn(this.signInContainer.nativeElement)
+    }
+
+    if (this.signUpContainer) {
+      this.clerk.mountSignUp(this.signUpContainer.nativeElement)
+    }
   }
+
+  ngOnInit(): void {}
 }
