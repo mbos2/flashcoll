@@ -10,6 +10,8 @@ import { IndexComponent } from '@pages/auth/index/index.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatTabsModule} from '@angular/material/tabs';
+import { SignInComponent } from '@components/sign-in/sign-in.component';
+import { SignUpComponent } from '@components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     HomeComponent,
     HeaderComponent,
     IndexComponent,
+    SignInComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
