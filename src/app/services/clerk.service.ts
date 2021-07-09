@@ -1,11 +1,12 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {from, fromEvent, Observable, ReplaySubject} from "rxjs";
 import {tap, take, concatMap, map, distinctUntilChanged} from "rxjs/operators";
 import {WindowRef} from "./window.service";
 import type {SignInProps, SignUpProps, Clerk as ClerkBase, UserResource} from '@clerk/types'
+import {Router} from "@angular/router";
 
 type Clerk = ClerkBase & {
-  load: () => Promise<void>
+  load: (opts: { navigate: (to: string) => Promise<unknown> }) => Promise<void>
 }
 
 declare global {
@@ -36,7 +37,7 @@ export class ClerkService {
     )
   }
 
-  constructor(private windowRef: WindowRef) {
+  constructor(private windowRef: WindowRef, private router: Router, private ngZone: NgZone) {
     this.loadClerkJS().subscribe();
   }
 
@@ -57,10 +58,14 @@ export class ClerkService {
   }
 
   private loadClerkJS() {
+    const navigate = (to: string) => {
+      return this.ngZone.run(() => this.router.navigate([to]));
+    }
+
     const script = ClerkService.buildScriptTag();
     const load$ = fromEvent(script, 'load').pipe(
       take(1),
-      concatMap(() => this.windowRef.nativeWindow.Clerk.load()),
+      concatMap(() => this.windowRef.nativeWindow.Clerk.load({navigate})),
       tap(() => this._loadedClerk$.next(this.windowRef.nativeWindow.Clerk))
     );
     document.body.appendChild(script);
