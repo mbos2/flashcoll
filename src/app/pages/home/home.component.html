@@ -1,9 +1,12 @@
 <mat-tab-group mat-align-tabs="start">
   <!-- #enddocregion align-start -->
   <mat-tab label="Sign In">
-    <div #signInContainer></div>
+    <button (click)="signOut()" *ngIf="loggedIn | async">
+      Sign out
+    </button>
+    <clerk-sign-in></clerk-sign-in>
   </mat-tab>
   <mat-tab label="Sign Up">
-    <div #signUpContainer></div>
+    <clerk-sign-up></clerk-sign-up>
   </mat-tab>
 </mat-tab-group>

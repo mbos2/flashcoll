@@ -1,5 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {ClerkService} from "../../services/clerk.service";
+import {filter, map, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
@@ -8,21 +9,15 @@ import {ClerkService} from "../../services/clerk.service";
   providers: [{provide: Window, useValue: window}],
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('signInContainer') private signInContainer: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('signUpContainer') private signUpContainer: ElementRef<HTMLDivElement> | undefined;
+
+  public loggedIn = this.clerk.user$.pipe(map(u => !!u));
 
   constructor(private clerk: ClerkService) { }
 
-  ngAfterViewInit() {
-    // "Make sure to call these in/after `ngAfterViewInit`, otherwise the @ViewChild props will be undefined"
-    if (this.signInContainer) {
-      this.clerk.mountSignIn(this.signInContainer.nativeElement)
-    }
-
-    if (this.signUpContainer) {
-      this.clerk.mountSignUp(this.signUpContainer.nativeElement)
-    }
+  signOut() {
+    this.clerk.signOut();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
