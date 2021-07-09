@@ -1,5 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
-import {from, fromEvent, Observable, ReplaySubject} from "rxjs";
+import {fromEvent, Observable, ReplaySubject} from "rxjs";
 import {tap, take, concatMap, map, distinctUntilChanged} from "rxjs/operators";
 import {WindowRef} from "./window.service";
 import type {SignInProps, SignUpProps, Clerk as ClerkBase, UserResource} from '@clerk/types'
@@ -51,9 +51,21 @@ export class ClerkService {
     });
   }
 
+  public unMountSignIn(targetElement: HTMLDivElement) {
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.unmountSignIn(targetElement)
+    });
+  }
+
   public mountSignUp(targetElement: HTMLDivElement, props?: SignUpProps) {
     this._loadedClerk$.subscribe(clerk => {
       clerk.mountSignUp(targetElement, props)
+    })
+  }
+
+  public unmountSignUp(targetElement: HTMLDivElement) {
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.unmountSignUp(targetElement)
     })
   }
 
