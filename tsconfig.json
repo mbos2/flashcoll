@@ -18,13 +18,13 @@
     "module": "es2020",
     "lib": [
       "es2018",
-      "dom",
+      "dom"
     ],
     "paths": {
       "@service/*": ["app/service/*"],
       "@components/*": ["app/components/*"],
       "@pages/*": ["app/pages/*"],
-      "@guards/*": ["app/guards/*"],
+      "@guards/*": ["app/guards/*"]
     }
   },
   "angularCompilerOptions": {
