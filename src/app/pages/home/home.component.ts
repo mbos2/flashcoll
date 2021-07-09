@@ -1,27 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { ClerkService } from '@service/clerk-service/clerk';
+import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ClerkService} from "../../services/clerk.service";
+import {filter, map, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass'],
-  providers: [{ provide: Window, useValue: window }],
+  providers: [{provide: Window, useValue: window}],
 })
 export class HomeComponent implements OnInit {
-  loginContainer: any;
-  constructor() {
-     //@ts-ignore
-    console.log(window);
-   }
+  @ViewChild('signUpContainer') private signUpContainer: ElementRef<HTMLDivElement> | undefined;
 
-  ngOnInit(): void { 
-    let signin = document.getElementById('sign-in');
-    // let signup = document.getElementById('sign-up');
-     //@ts-ignore
-    console.log(signin, window.Clerk);
-     //@ts-ignore
-    window.Clerk.mountSignIn(signin);
-      //@ts-ignore
-    // window.Clerk.mountSignUp(signup);
+  public loggedIn = this.clerk.user$.pipe(map(u => !!u));
+
+  constructor(private clerk: ClerkService) { }
+
+  signOut() {
+    this.clerk.signOut();
   }
+
+  ngOnInit(): void { }
 }
