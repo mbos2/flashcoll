@@ -21,38 +21,30 @@ declare global {
   providedIn: 'root'
 })
 export class ClerkService {
-  private readonly _clerkLoaded$ = new ReplaySubject<void>(1);
-  private _clerkInstance: Clerk | undefined;
+  private readonly _loadedClerk$ = new ReplaySubject<Clerk>(1);
 
   constructor(private windowRef: WindowRef) {
-    this.loadScript().subscribe();
+    this.loadClerkJS().subscribe();
   }
 
   public mountSignIn(targetElement: HTMLDivElement, props?: SignInProps) {
-    this._clerkLoaded$.pipe(
-      tap(() => {
-        this.assertClerkLoaded(this._clerkInstance);
-        this._clerkInstance.mountSignIn(targetElement, props)
-      })
-    ).subscribe();
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.mountSignIn(targetElement, props)
+    });
   }
 
   public mountSignUp(targetElement: HTMLDivElement, props?: SignUpProps) {
-    this._clerkLoaded$.pipe(
-      tap(() => {
-        this.assertClerkLoaded(this._clerkInstance);
-        this._clerkInstance.mountSignUp(targetElement, props)
-      })
-    ).subscribe();
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.mountSignUp(targetElement, props)
+    })
   }
 
-  private loadScript() {
+  private loadClerkJS() {
     const script = ClerkService.buildScriptTag();
     const load$ = fromEvent(script, 'load').pipe(
       take(1),
       concatMap(() => this.windowRef.nativeWindow.Clerk.load()),
-      tap(() => this._clerkInstance = this.windowRef.nativeWindow.Clerk),
-      tap(() => this._clerkLoaded$.next())
+      tap(() => this._loadedClerk$.next(this.windowRef.nativeWindow.Clerk))
     );
     document.body.appendChild(script);
     return load$;
@@ -65,11 +57,4 @@ export class ClerkService {
     script.src = `https://${frontendApi}/npm/@clerk/clerk-js@1/dist/clerk.browser.js`;
     return script;
   }
-
-  private assertClerkLoaded(clerk: unknown): asserts clerk {
-    if (!this._clerkInstance) {
-      throw new Error("Clerk is not loaded yet - this should not be possible at this point, please contact the Clerk team :)")
-    }
-  }
-
 }
