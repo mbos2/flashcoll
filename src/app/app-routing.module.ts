@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClerkAuthGuardGuard } from '@guards/clerk-auth-guard.guard';
 import { IndexComponent } from '@pages/auth/index/index.component';
+import { LoginComponent } from '@pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
@@ -10,9 +11,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'app',
-    component: IndexComponent,
-    canActivate: [ClerkAuthGuardGuard],
+    path: 'board',
+    component: IndexComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 

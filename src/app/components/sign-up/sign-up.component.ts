@@ -9,9 +9,9 @@ import {ClerkService} from "../../services/clerk.service";
 export class SignUpComponent implements AfterViewInit {
   @ViewChild('signUpContainer', {static: false}) private signUpContainer: ElementRef<HTMLDivElement> | undefined;
 
-  constructor(private clerk: ClerkService) { }
+  constructor(private clerk: ClerkService) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit() {    
     this.clerk.user$.subscribe(user => {
       const el = this.signUpContainer?.nativeElement;
       if(!el) {

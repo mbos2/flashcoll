@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import { SignInComponent } from '@components/sign-in/sign-in.component';
 import { SignUpComponent } from '@components/sign-up/sign-up.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SignUpComponent } from '@components/sign-up/sign-up.component';
     IndexComponent,
     SignInComponent,
     SignUpComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

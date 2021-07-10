@@ -2,7 +2,7 @@ import {Injectable, NgZone} from '@angular/core';
 import {fromEvent, Observable, ReplaySubject} from "rxjs";
 import {tap, take, concatMap, map, distinctUntilChanged} from "rxjs/operators";
 import {WindowRef} from "./window.service";
-import type {SignInProps, SignUpProps, Clerk as ClerkBase, UserResource} from '@clerk/types'
+import type { SignInProps, SignUpProps, Clerk as ClerkBase, UserResource, UserButtonProps } from '@clerk/types';
 import {Router} from "@angular/router";
 
 type Clerk = ClerkBase & {
@@ -23,7 +23,7 @@ declare global {
 })
 export class ClerkService {
   private readonly _loadedClerk$ = new ReplaySubject<Clerk>(1);
-
+  public isClerkAuth: Boolean | undefined;
   public get user$(): Observable<UserResource | null> {
     const user$ = new ReplaySubject<UserResource | undefined | null>(1);
 
@@ -37,12 +37,36 @@ export class ClerkService {
     )
   }
 
+  public isUserAuthenthicated(clerk: any) {
+    console.log(this.windowRef.nativeWindow);
+    if (clerk) {
+      this.isClerkAuth = true;
+      console.log('User exists', this.isClerkAuth);      
+    } else {
+      this.isClerkAuth = false;
+      console.log('User does not exist', this.isClerkAuth);
+    }
+  }
+
   constructor(private windowRef: WindowRef, private router: Router, private ngZone: NgZone) {
+    console.log(window.Clerk)
     this.loadClerkJS().subscribe();
   }
 
   public signOut() {
     this._loadedClerk$.pipe(concatMap((clerk) => clerk.signOut())).subscribe();
+  }
+
+  public mountUserButton(targetElement: HTMLDivElement, props?: UserButtonProps) {
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.mountUserButton(targetElement, props)
+    });
+  }
+
+  public unMountUserButton(targetElement: HTMLDivElement, props?: UserButtonProps) {
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.unmountUserButton(targetElement)
+    });
   }
 
   public mountSignIn(targetElement: HTMLDivElement, props?: SignInProps) {

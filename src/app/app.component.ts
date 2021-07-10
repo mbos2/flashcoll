@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, Injectable, } from '@angular/core';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -9,6 +8,7 @@ import { Component, OnInit, Inject, Injectable, } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit{
+
   ngOnInit(): void {
 
   }
