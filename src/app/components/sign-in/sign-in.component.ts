@@ -4,8 +4,8 @@ import {
   ElementRef,
   ViewChild
 } from '@angular/core';
-import { Router } from '@angular/router';
-import {ClerkService} from "../../services/clerk.service";
+import { ClerkService } from "../../services/clerk.service";
+
 
 @Component({
   selector: 'clerk-sign-in',
@@ -16,11 +16,9 @@ export class SignInComponent implements AfterViewInit {
   @ViewChild('signInContainer', {static: false}) private signInContainer: ElementRef<HTMLDivElement> | undefined;
 
   constructor(private clerk: ClerkService) {
-    let switchButton = document.body.querySelector('.cl-component'); // returns null
-    console.log(switchButton);
   }
 
-  ngAfterViewInit() {    
+  ngAfterViewInit() {
     this.clerk.user$.subscribe(user => {
       const el = this.signInContainer?.nativeElement;
       if (!el) {

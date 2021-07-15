@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {ClerkService} from "../../services/clerk.service";
+import { ClerkService } from "../../services/clerk.service";
 
 @Component({
   selector: 'clerk-sign-up',
@@ -7,11 +7,15 @@ import {ClerkService} from "../../services/clerk.service";
   styleUrls: ['./sign-up.component.sass']
 })
 export class SignUpComponent implements AfterViewInit {
-  @ViewChild('signUpContainer', {static: false}) private signUpContainer: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild('signUpContainer', { static: false }) private signUpContainer: ElementRef<HTMLDivElement> | undefined;
 
-  constructor(private clerk: ClerkService) {}
+  a: any;
+  constructor(private clerk: ClerkService) {
+    this.a = document.getElementById("particles-js");
+    console.log(this.a);
+  }
 
-  ngAfterViewInit() {    
+  ngAfterViewInit() {
     this.clerk.user$.subscribe(user => {
       const el = this.signUpContainer?.nativeElement;
       if(!el) {
@@ -26,4 +30,5 @@ export class SignUpComponent implements AfterViewInit {
       this.clerk.unmountSignUp(el);
     })
   }
+
 }
