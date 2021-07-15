@@ -1,7 +1,16 @@
-User button:  <div id="userAction" #userAction></div>
-<button (click)="testHarperDbData()" >Test harper db</button>
-<button (click)="testHarperDbDataByUserSubprofileId()" >Test harper db subprofile</button>
-<!-- <div id="auth-links">
-  <a href="javascript:void(0)" onclick="Clerk.openSignUp()">Sign Up</a> |
-  <a href="javascript:void(0)" onclick="Clerk.openSignIn()">Sign In</a>
-</div> -->
+<nav>
+
+  <!-- <div *ngIf="userId === null || userId === undefined || userId == undefined; else elseBlock">
+    <h3><a [routerLink]="['sign-in']">Sign in</a> | <a [routerLink]="['sign-up']">Sign up</a></h3>
+  </div>
+  <ng-template #elseBlock #userAction>
+    <div class="userAction" #userAction></div>
+  </ng-template> -->
+
+  <h3 *ngIf="!userIsLoggedIn">
+    <a [routerLink]="['sign-in']">Sign in</a> | <a [routerLink]="['sign-up']">Sign up</a>
+  </h3>
+  <div class="userAction" #userAction></div>
+</nav>
+<!-- <button (click)="testHarperDbData()" >Test harper db</button>
+<button (click)="testHarperDbDataByUserSubprofileId()" >Test harper db subprofile</button> -->

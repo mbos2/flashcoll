@@ -37,14 +37,11 @@ export class ClerkService {
     )
   }
 
-  public isUserAuthenthicated(clerk: any) {
-    console.log(this.windowRef.nativeWindow);
+  public isUserAuthenthicated(clerk: UserResource) {
     if (clerk) {
-      this.isClerkAuth = true;
-      console.log('User exists', this.isClerkAuth);      
+      return this.isClerkAuth = true;    
     } else {
-      this.isClerkAuth = false;
-      console.log('User does not exist', this.isClerkAuth);
+      return this.isClerkAuth = false;
     }
   }
 
@@ -95,7 +92,8 @@ export class ClerkService {
 
   private loadClerkJS() {
     const navigate = (to: string) => {
-      return this.ngZone.run(() => this.router.navigate([to]));
+        const [path, fragment] = to.split("#")
+        return this.ngZone.run(() => this.router.navigate([path], {fragment: fragment}));
     }
 
     const script = ClerkService.buildScriptTag();

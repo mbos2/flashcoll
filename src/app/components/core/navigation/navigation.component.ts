@@ -14,6 +14,7 @@ export class NavigationComponent implements AfterViewInit {
   harperDbService: HarperDbService;
   loginContainer: any;
   userId: any;
+  userIsLoggedIn: Boolean = false;
   constructor(private clerk: ClerkService, private router: Router, _harperDbService: HarperDbService) {
     console.log(window);
     this.harperDbService = _harperDbService;
@@ -21,8 +22,7 @@ export class NavigationComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {     
     this.clerk.user$.subscribe(user => {
-      this.userId = String(user?.id);
-      console.log(user?.id);
+      this.userId = String(user?.id);     
       const el = this.userActionContainer?.nativeElement;      
       if (!el) {
         console.log('Can not fetch native element for user action!');
@@ -31,12 +31,12 @@ export class NavigationComponent implements AfterViewInit {
 
       if (!user) {
         this.clerk.unMountUserButton(el)
-        console.log('user empty: ',window);
+        this.userIsLoggedIn = false;
         return;
       }
 
       this.clerk.mountUserButton(el);
-      console.log('user subscribed: ',window);
+      this.userIsLoggedIn = true;
     })
   }
 
@@ -50,7 +50,7 @@ export class NavigationComponent implements AfterViewInit {
   }
 
   async testHarperDbDataByUserSubprofileId() {
-    let sqlQuery = "SELECT * FROM flashcoll_schema.subprofile WHERE id = 1";
+    let sqlQuery = `SELECT * FROM flashcoll_schema.subprofile WHERE id = '${this.userId}'`; // let sqlQuery = "SELECT * FROM flashcoll_schema.subprofile WHERE id = 'user_1vM31eHUtbuGEueo3aCoZdBwQ9o'";
     let request = await this.harperDbService.getData(sqlQuery)
       .then(response => response.text())
       // @ts-ignore
