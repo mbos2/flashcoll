@@ -11,8 +11,6 @@ export class SignUpComponent implements AfterViewInit {
 
   a: any;
   constructor(private clerk: ClerkService) {
-    this.a = document.getElementById("particles-js");
-    console.log(this.a);
   }
 
   ngAfterViewInit() {

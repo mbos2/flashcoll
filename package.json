@@ -24,6 +24,7 @@
     "@clerk/types": "^1.6.0",
     "bulma": "^0.9.3",
     "bulma-start": "0.0.4",
+    "ng-process-env": "^1.0.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "tsparticles": "^1.31.1",

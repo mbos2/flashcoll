@@ -1,34 +1,61 @@
+import { AfterViewInit } from '@angular/core';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClerkService } from 'app/services/clerk.service';
+import { HarperDbService } from 'app/services/harperdb.service';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.sass']
 })
-export class NavigationComponent implements OnInit {
-  @ViewChild('userActionButton', {static: false}) private userActionContainer: ElementRef<HTMLDivElement> | undefined;
-
+export class NavigationComponent implements AfterViewInit {
+  @ViewChild('userAction', {static: false}) private userActionContainer: ElementRef<HTMLDivElement> | undefined;
+  harperDbService: HarperDbService;
   loginContainer: any;
-  constructor(private clerk: ClerkService, private router: Router) {
-    console.log(this.router.url);
+  userId: any;
+  constructor(private clerk: ClerkService, private router: Router, _harperDbService: HarperDbService) {
+    console.log(window);
+    this.harperDbService = _harperDbService;
   }
 
-  ngOnInit(): void {     
+  ngAfterViewInit(): void {     
     this.clerk.user$.subscribe(user => {
-      console.log(user);
-      const el = this.userActionContainer?.nativeElement;
+      this.userId = String(user?.id);
+      console.log(user?.id);
+      const el = this.userActionContainer?.nativeElement;      
       if (!el) {
+        console.log('Can not fetch native element for user action!');
         return;
       }
 
       if (!user) {
         this.clerk.unMountUserButton(el)
+        console.log('user empty: ',window);
         return;
       }
 
       this.clerk.mountUserButton(el);
+      console.log('user subscribed: ',window);
     })
   }
+
+  async testHarperDbData() {
+    let sqlQuery = `SELECT * FROM flashcoll_schema.subprofile`;
+    let request = await this.harperDbService.getData(sqlQuery)
+      .then(response => response.text())
+      // @ts-ignore
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
+  async testHarperDbDataByUserSubprofileId() {
+    let sqlQuery = "SELECT * FROM flashcoll_schema.subprofile WHERE id = 1";
+    let request = await this.harperDbService.getData(sqlQuery)
+      .then(response => response.text())
+      // @ts-ignore
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
 }

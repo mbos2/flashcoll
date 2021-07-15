@@ -108,11 +108,11 @@ export class ClerkService {
     return load$;
   }
 
-  private static buildScriptTag(frontendApi = 'clerk.g6v9y.5r22c.lcl.dev'): HTMLScriptElement {
+  private static buildScriptTag(frontendApi = 'clerk.rv0d8.fjdqt.lcl.dev'): HTMLScriptElement {
     const script = document.createElement('script');
     script.setAttribute('data-clerk-frontend-api', frontendApi);
     script.async = true;
     script.src = `https://${frontendApi}/npm/@clerk/clerk-js@1/dist/clerk.browser.js`;
     return script;
-  }
+  } 
 }

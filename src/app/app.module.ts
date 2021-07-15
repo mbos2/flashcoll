@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SignInComponent } from '@components/sign-in/sign-in.component';
 import { SignUpComponent } from '@components/sign-up/sign-up.component';
+import { HarperDbService } from './services/harperdb.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { SignUpComponent } from '@components/sign-up/sign-up.component';
     BrowserAnimationsModule,
   ],
   exports: [],
-  providers: [],
+  providers: [HarperDbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

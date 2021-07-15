@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  CLERK_FRONTEND_API: 'clerk.rv0d8.fjdqt.lcl.dev',
+  HARPERDB_API: 'https://flashcoll-mbosnjak.harperdbcloud.com'
 };
 
 /*
