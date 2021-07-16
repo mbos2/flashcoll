@@ -1,12 +1,4 @@
 <nav>
-
-  <!-- <div *ngIf="userId === null || userId === undefined || userId == undefined; else elseBlock">
-    <h3><a [routerLink]="['sign-in']">Sign in</a> | <a [routerLink]="['sign-up']">Sign up</a></h3>
-  </div>
-  <ng-template #elseBlock #userAction>
-    <div class="userAction" #userAction></div>
-  </ng-template> -->
-
   <h3 *ngIf="!userIsLoggedIn">
     <a [routerLink]="['sign-in']">Sign in</a> | <a [routerLink]="['sign-up']">Sign up</a>
   </h3>

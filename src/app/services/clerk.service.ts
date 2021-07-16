@@ -90,6 +90,18 @@ export class ClerkService {
     })
   }
 
+  public mountUserProfile(targetElement: HTMLDivElement, props?: UserButtonProps) {
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.mountUserProfile(targetElement, props)
+    });
+  }
+
+  public unmountUserProfile(targetElement: HTMLDivElement, props?: UserButtonProps) {
+    this._loadedClerk$.subscribe(clerk => {
+      clerk.unmountUserProfile(targetElement)
+    });
+  }
+
   private loadClerkJS() {
     const navigate = (to: string) => {
         const [path, fragment] = to.split("#")
@@ -112,5 +124,5 @@ export class ClerkService {
     script.async = true;
     script.src = `https://${frontendApi}/npm/@clerk/clerk-js@1/dist/clerk.browser.js`;
     return script;
-  } 
+  }
 }

@@ -37,6 +37,11 @@ export class NavigationComponent implements AfterViewInit {
 
       this.clerk.mountUserButton(el);
       this.userIsLoggedIn = true;
+      setTimeout( () => {
+        this.createSocialsSettingsButton();
+      },1);
+      // let buttons = document.querySelector('.cl-component.cl-user-button-popup')?.children[1].children[0];
+      // console.log(buttons);
     })
   }
 
@@ -58,4 +63,17 @@ export class NavigationComponent implements AfterViewInit {
       .catch(error => console.log('error', error));
   }
 
+  createSocialsSettingsButton() {
+    let buttons = document.querySelector('.cl-component.cl-user-button-popup')?.children[1].children[0];   
+    console.log(buttons?.children[0]);
+    buttons?.children[0].classList.add('order-1');
+    buttons?.children[1].classList.add('order-3');
+    let newButton = document.createElement('a');
+    newButton.id = 'socials';
+    newButton.classList.add('_3bDedxNjPBtkn-BuP2nhY2','_11ZVSe2vGmcrGqZUhdWgXB', '_3roVnjNLYXA8oyjSMR_tyO', '_2eZklRe9WnyPiLM2T0R6XG', 'cl-accounts-manager-button', '_1WVBqxUEPjqhMKyLv7b558', 'order-2');
+    newButton.style.display = 'flex';
+    newButton.innerHTML = 'Manage socials';
+    newButton.href = "socials";
+    buttons?.appendChild(newButton)
+  }
 }
