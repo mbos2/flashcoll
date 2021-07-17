@@ -1,8 +1,12 @@
 <nav>
   <h3 *ngIf="!userIsLoggedIn">
-    <a [routerLink]="['sign-in']">Sign in</a> | <a [routerLink]="['sign-up']">Sign up</a>
+    <a [routerLink]="['sign-in']">Sign in</a> |
+    <a [routerLink]="['sign-up']">Sign up</a>
   </h3>
   <div class="userAction" #userAction></div>
 </nav>
-<!-- <button (click)="testHarperDbData()" >Test harper db</button>
-<button (click)="testHarperDbDataByUserSubprofileId()" >Test harper db subprofile</button> -->
+<button (click)="testHarperDbData()">Test harper db</button>
+<button (click)="testHarperDbDataByUserSubprofileId()">
+  Test harper db subprofile
+</button>
+<button (click)="testHarperArticleByUserId()">Test harper db article</button>

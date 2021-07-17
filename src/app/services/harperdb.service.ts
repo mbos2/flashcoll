@@ -29,6 +29,7 @@ export class HarperDbService {
 
   async getData(sqlQuery: string) {
     let options = this.harperRequestOptions(sqlQuery);
+    console.log(options);
     return await fetch(this.harpedAPI, options);
   }  
 

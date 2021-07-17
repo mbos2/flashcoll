@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import {  CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,8 @@ import { SignUpComponent } from '@components/sign-up/sign-up.component';
 import { HarperDbService } from './services/harperdb.service';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SocialsComponent } from './pages/socials/socials.component';
+import { MarkdownPipe } from './markdown.pipe';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { SocialsComponent } from './pages/socials/socials.component';
     SignUpComponent,
     ProfileComponent,
     SocialsComponent,
+    MarkdownPipe,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,16 @@ import { SocialsComponent } from './pages/socials/socials.component';
     BrowserAnimationsModule,
   ],
   exports: [],
-  providers: [HarperDbService],
-  bootstrap: [AppComponent]
+  providers: [
+    HarperDbService,
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        fullLibraryLoader: () => import('highlight.js'),
+      }
+    }
+  ],
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
