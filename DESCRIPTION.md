@@ -8,6 +8,6 @@ Hello collaborator!
 
 ## Second title
 
-[x] Earth (Orbit/Moon)
-[x] Earth (Orbit/Moon)
-[x] Earth (Orbit/Moon)
+- [x] Earth (Orbit/Moon)
+- [ ] Earth (Orbit/Moon)
+- [ ] Earth (Orbit/Moon)
