@@ -33,8 +33,7 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.sass",
-              "./src/sass/bulma.scss",
-              "../node_modules/highlight.js/styles/github.css"
+              "./src/sass/bulma.scss"              
             ],
             "scripts": []
           },
@@ -104,8 +103,7 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.sass",
-              "./src/sass/bulma.scss",
-              "../node_modules/highlight.js/styles/github.css"
+              "./src/sass/bulma.scss"              
             ],
             "scripts": []
           }

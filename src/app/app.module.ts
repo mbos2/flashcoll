@@ -12,10 +12,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignInComponent } from '@components/sign-in/sign-in.component';
 import { SignUpComponent } from '@components/sign-up/sign-up.component';
 import { HarperDbService } from './services/harperdb.service';
-import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { SocialsComponent } from './pages/socials/socials.component';
 import { MarkdownPipe } from './markdown.pipe';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { AuthGuardGuard } from '@guards/auth-guard.guard';
+import { NotAuthorizedComponent } from './pages/not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     ProfileComponent,
     SocialsComponent,
     MarkdownPipe,
+    NotAuthorizedComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
       useValue: {
         fullLibraryLoader: () => import('highlight.js'),
       }
-    }
+    },
+    AuthGuardGuard
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

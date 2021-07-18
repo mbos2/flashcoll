@@ -1,5 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
-import {fromEvent, Observable, ReplaySubject} from "rxjs";
+import {BehaviorSubject, fromEvent, Observable, ReplaySubject, Subject} from "rxjs";
 import {tap, take, concatMap, map, distinctUntilChanged} from "rxjs/operators";
 import {WindowRef} from "./window.service";
 import type { SignInProps, SignUpProps, Clerk as ClerkBase, UserResource, UserButtonProps } from '@clerk/types';
@@ -14,7 +14,8 @@ declare global {
     // Please keep the ts-ignore here for now
     // This is a known issue that will be fixed soon
     // @ts-ignore
-    Clerk?: Clerk
+    Clerk?: Clerk,
+    clerk: Clerk
   }
 }
 
@@ -23,12 +24,12 @@ declare global {
 })
 export class ClerkService {
   private readonly _loadedClerk$ = new ReplaySubject<Clerk>(1);
-  public isClerkAuth: Boolean | undefined;
-  public get user$(): Observable<UserResource | null> {
+  
+  public get user$(): Observable<UserResource | null> { 
     const user$ = new ReplaySubject<UserResource | undefined | null>(1);
 
-    this._loadedClerk$.subscribe(clerk => {
-      clerk.addListener(({user}) => user$.next(user));
+    this._loadedClerk$.subscribe((clerk) => {
+      clerk.addListener(({ user }) => user$.next(user));
     })
 
     return user$.asObservable().pipe(
@@ -37,17 +38,10 @@ export class ClerkService {
     )
   }
 
-  public isUserAuthenthicated(clerk: UserResource) {
-    if (clerk) {
-      return this.isClerkAuth = true;    
-    } else {
-      return this.isClerkAuth = false;
-    }
-  }
-
   constructor(private windowRef: WindowRef, private router: Router, private ngZone: NgZone) {
     console.log(window.Clerk)
     this.loadClerkJS().subscribe();
+    this.user$.subscribe();
   }
 
   public signOut() {
