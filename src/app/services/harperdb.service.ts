@@ -5,10 +5,13 @@ export class HarperDbService {
  
   private harpedAPI = environment.HARPERDB_API;
   myHeaders = new Headers();
-  constructor() {   
+  userData: any;
+  constructor() {
     this.myHeaders.append("Content-Type", "application/json");
-    this.myHeaders.append("Authorization", "Basic Zmxhc2hjb2xsX2FkbWluOjE2MTE5Mm1N"); 
+    this.myHeaders.append("Authorization", "Basic Zmxhc2hjb2xsX2FkbWluOjE2MTE5Mm1N");
   }
+
+  //#region HarperDbConfig
 
   harperRequestOptions(sqlQuery: string): RequestInit | undefined {
     return {
@@ -16,13 +19,13 @@ export class HarperDbService {
       headers: this.myHeaders,
       body: this.harperPrepareRawData(sqlQuery),
       // redirect: 'follow'
-    }   
+    }
   }
 
   harperPrepareRawData(sqlQuery: string) {
     return JSON.stringify({
-        "operation": "sql",
-        "sql": sqlQuery // SELECT * FROM schema.table
+      "operation": "sql",
+      "sql": sqlQuery
     });
   }
 
@@ -31,26 +34,60 @@ export class HarperDbService {
     return await fetch(this.harpedAPI, options);
   }
 
+  //#endregion
+  
+  //#region HarperDbMethods
+
   async generateUserSubprofileIfNotExist(userId: string) {
-    let userData: any;
-    const user = await fetch(`https://flashcoll-backend.glitch.me/clerk/user/${userId}`)
+    let userdata: any;
+    await fetch(`https://flashcoll-backend.glitch.me/clerk/user/${userId}`)
       .then(data => {
-        let json = data.json();
-        json.then(res => {
-          userData = res;
+        return userdata = data.json();      
+      }).then(userData => {
+        fetch(`https://flashcoll-backend.glitch.me/github/user/${userData.external_accounts[0].provider_user_id}`)
+          .then(response => {
+          console.log('hehe')
+          let json = response.json();
+          json.then(result => {
+            userData.githubURL = result.url;
+            userData.githubUsername = result.login;
+            return userData;
+          }).then(newUserData => {
+            this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where id = "${userId}"`)
+              .then(data => {
+                return data.json();
+              })
+              .then(result => {
+                if (result.length < 1) {
+                  const sqlQuery = `INSERT INTO flashcoll.user_profile (id, firstName, lastName, email, githubProfileURL, githubID, githubUsername, userImageURL, facebookURL, twitterURL, instagramURL) VALUE ("${newUserData.id}", "${newUserData.first_name}", "${newUserData.last_name}", "${''}", "${newUserData.githubURL}", "${newUserData.external_accounts[0].provider_user_id}", "${newUserData.githubUsername}", "${userData.profile_image_url}", "${''}", "${''}", "${''}")`;
+                  this.runSQLOnHarperDB(sqlQuery);
+                }
+              })
+          })
         })
       })
+
+
     
-    await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where id = "${userId}"`)
+    // await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where id = "${userId}"`)
+    //   .then(data => {
+    //     return data.json();
+    //   })
+    //   .then(result => {
+    //     if (result.length < 1) {
+    //       const sqlQuery = `INSERT INTO flashcoll.user_profile (id, firstName, lastName, email, githubID, githubUsername, userImageURL, facebookURL, twitterURL, instagramURL) VALUE ("${userData.id}", "${userData.first_name}", "${userData.last_name}", "${''}", "${userData.external_accounts[0].provider_user_id}", "${''}", "${userData.profile_image_url}", "${''}", "${''}", "${''}")`;
+    //       this.runSQLOnHarperDB(sqlQuery);
+    //     }
+    //   })
+  }
+
+  async getUserSubProfileByUserId(userId: string) {
+    return await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where id = "${userId}"`)
       .then(data => {
         return data.json();
-      })
-      .then(result => {
-        if (result.length < 1) {
-          // Create user here!
-          const sqlQuery = `INSERT INTO flashcoll.user_profile (id, firstName, lastName, email, githubID, userImageURL, facebookURL, twitterURL, instagramURL) VALUE ("${userData.id}", "${userData.first_name}", "${userData.last_name}", "${''}", "${userData.external_accounts[0].provider_user_id}", "${userData.profile_image_url}", "${''}", "${''}", "${''}")`;
-          this.runSQLOnHarperDB(sqlQuery);
-        }
-      })
+      });
   }
+
+  //#endregion
+
 }

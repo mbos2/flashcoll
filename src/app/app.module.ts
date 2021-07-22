@@ -14,7 +14,7 @@ import { HarperDbService } from './services/harperdb.service';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { SocialsComponent } from './pages/auth/socials/socials.component';
 import { MarkdownPipe } from './markdown.pipe';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AuthGuardGuard } from '@guards/auth-guard.guard';
 import { NotAuthorizedComponent } from './pages/not-authorized/not-authorized.component';
 import { LandingComponent } from './pages/landing/landing.component';
@@ -22,9 +22,10 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 import {MatMenuModule} from '@angular/material/menu';
 import { AppLayoutComponent } from './components/core/app-layout/app-layout.component';
-import { SidenavigationComponent } from './components/core/sidenavigation/sidenavigation.component';
 import { ProjectdetailsComponent } from './components/projectdetails/projectdetails.component';
 import { LogoComponent } from './components/shared/logo/logo.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,6 @@ import { LogoComponent } from './components/shared/logo/logo.component';
     LandingComponent,
     NotFoundComponent,
     AppLayoutComponent,
-    SidenavigationComponent,
     ProjectdetailsComponent,
     LogoComponent,
   ],
@@ -50,7 +50,8 @@ import { LogoComponent } from './components/shared/logo/logo.component';
     BrowserAnimationsModule,
     MaterialExtensionsModule,
     MaterialExtensionsExperimentalModule,
-    MatMenuModule
+    MatMenuModule,
+    ReactiveFormsModule
   ],
   exports: [],
   providers: [

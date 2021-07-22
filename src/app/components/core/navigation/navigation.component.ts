@@ -1,24 +1,22 @@
 import { AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Component} from '@angular/core';
-import { Router } from '@angular/router';
 import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.sass']
 })
+
 export class NavigationComponent implements AfterViewInit, OnInit {
   @ViewChild('userAction', { static: false }) private userAction: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('authButtons', { static: false }) private authButtons: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('loggedInActions', {static: false}) private loggedInActions: ElementRef<HTMLDivElement> | undefined;
-  harperDbService: HarperDbService;
   userName: string | null | undefined;
-  constructor(private clerk: ClerkService, private router: Router, _harperDbService: HarperDbService) {
 
-    console.log(window);
-    this.harperDbService = _harperDbService;
-  }
+  constructor(private clerk: ClerkService, private harperDbService: HarperDbService) { }
+
   ngOnInit(): void {
     document.addEventListener('DOMContentLoaded', function () {
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -50,23 +48,20 @@ export class NavigationComponent implements AfterViewInit, OnInit {
 
       if (!user) {
         this.clerk.unMountUserButton(el)
-        // @ts-ignore
         authButtons!.style.display = 'flex';
         loggedInActions!.style.display = 'none';
         return;
       }
-      // @ts-ignore
-      // authButtons!.style.display = 'none';
+      this.userName = user.firstName;
       loggedInActions!.style.display = 'flex';
       this.clerk.mountUserButton(el);
-      this.userName = user.firstName;
       setTimeout(() => {
         // Appending new button to user action because component loads faster than user action button can fetch all elements on component init
         // Delay of 1ms is needed to fetch the rest of user action elements so those could be targeted with javascript
         this.createSocialsSettingsButton();
       }, 1);
       this.harperDbService.generateUserSubprofileIfNotExist(user!.id);
-    }); // End of user subscription
+    });
   }
 
   createSocialsSettingsButton() {

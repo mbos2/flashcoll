@@ -36,6 +36,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuardGuard],
   },
   {
     path: 'not-authorized',
@@ -43,7 +44,8 @@ const routes: Routes = [
   },
   {
     path: 'socials',
-    component: SocialsComponent, 
+    component: SocialsComponent,
+    canActivate: [AuthGuardGuard],
   },
   {
     path: 'details',
