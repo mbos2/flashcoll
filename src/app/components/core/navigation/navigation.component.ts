@@ -65,7 +65,9 @@ export class NavigationComponent implements AfterViewInit, OnInit {
         // Delay of 1ms is needed to fetch the rest of user action elements so those could be targeted with javascript
         this.createSocialsSettingsButton();
       }, 1);
-      this.harperDbService.generateUserSubprofileIfNotExist(user!.id);
+      this.harperDbService.generateUserSubprofileIfNotExist(user!.id)
+        .then(data => data.json())
+        .then(result => console.log(result));
     }); // End of user subscription
   }
 

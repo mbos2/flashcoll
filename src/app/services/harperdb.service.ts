@@ -42,7 +42,7 @@ export class HarperDbService {
     //https://devmotiv-emailer.glitch.me/sendmail
     // const user = fetch(`http://localhost:3000/clerk/user/${userId}`);
     const user = fetch(`https://flashcoll-backend.glitch.me/clerk/user/${userId}`);
-    console.log(user);
+    return user
   }
 
   // async testHarperDbDataByUserSubprofileId() {
