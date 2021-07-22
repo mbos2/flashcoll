@@ -60,7 +60,9 @@ export class NavigationComponent implements AfterViewInit, OnInit {
       loggedInActions!.style.display = 'flex';
       this.clerk.mountUserButton(el);
       this.userName = user.firstName;
-      setTimeout(() => {      
+      setTimeout(() => {
+        // Appending new button to user action because component loads faster than user action button can fetch all elements on component init
+        // Delay of 1ms is needed to fetch the rest of user action elements so those could be targeted with javascript
         this.createSocialsSettingsButton();
       }, 1);
     }); // End of user subscription
