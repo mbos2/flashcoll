@@ -7,7 +7,6 @@ import {
 import { HarperDbService } from 'app/services/harperdb.service';
 import { ClerkService } from "../../services/clerk.service";
 
-
 @Component({
   selector: 'clerk-sign-in',
   templateUrl: './sign-in.component.html',

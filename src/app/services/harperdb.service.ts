@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 @Injectable()
 export class HarperDbService {
-
  
   private harpedAPI = environment.HARPERDB_API;
   myHeaders = new Headers();
@@ -27,64 +26,31 @@ export class HarperDbService {
     });
   }
 
-  async getData(sqlQuery: string) {
+  async runSQLOnHarperDB(sqlQuery: string) {
     let options = this.harperRequestOptions(sqlQuery);
-    console.log(options);
     return await fetch(this.harpedAPI, options);
   }
 
   async generateUserSubprofileIfNotExist(userId: string) {
-    let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Accept', 'application/json');
-    // headers.append('Origin', 'http://localhost:3000');
-    // headers.append('Access-Control-Allow-Origin', '*')
-    //https://devmotiv-emailer.glitch.me/sendmail
-    // const user = fetch(`http://localhost:3000/clerk/user/${userId}`);
-    const user = fetch(`https://flashcoll-backend.glitch.me/clerk/user/${userId}`);
-    return user
-  }
-
-  // async testHarperDbDataByUserSubprofileId() {
-  //   let sqlQuery = `SELECT * FROM flashcoll_schema.subprofile WHERE id = '${this.userId}'`; // let sqlQuery = "SELECT * FROM flashcoll_schema.subprofile WHERE id = 'user_1vM31eHUtbuGEueo3aCoZdBwQ9o'";
-  //   let request = await this.harperDbService.getData(sqlQuery)
-  //     .then(response => response.text())
-  //     // @ts-ignore
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log('error', error));
-  // }
-  
-  
-  // async testHarperDbData() {
-  //   let sqlQuery = `SELECT * FROM flashcoll_schema.subprofile`;
-  //   let request = await this.harperDbService.getData(sqlQuery)
-  //     .then(response => response.text())
-  //     // @ts-ignore
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log('error', error));
-  // }
-
-  // async testHarperDbDataByUserSubprofileId() {
-  //   let sqlQuery = `SELECT * FROM flashcoll_schema.subprofile WHERE id = '${this.userId}'`; // let sqlQuery = "SELECT * FROM flashcoll_schema.subprofile WHERE id = 'user_1vM31eHUtbuGEueo3aCoZdBwQ9o'";
-  //   let request = await this.harperDbService.getData(sqlQuery)
-  //     .then(response => response.text())
-  //     // @ts-ignore
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log('error', error));
-  // }
-
-  // async testHarperArticleByUserId() {
-
-  //   let sqlQuery = `SELECT * FROM flashcoll_schema.subprofile WHERE id = '${this.userId}'`; // let sqlQuery = "SELECT * FROM flashcoll_schema.subprofile WHERE id = 'user_1vM31eHUtbuGEueo3aCoZdBwQ9o'";
-  //   let sql = `SELECT title FROM flashcoll_schema.article where search_json('$[subId=\"{${this.userId}\"]', flashcoll_schema.subprofile)`;
-
-  //   let s = "SELECT subprofile.subId, article.id, article.userId, article.title FROM flashcoll_schema.subprofile INNER JOIN flashcoll_schema.article ON subprofile.subId=article.userId WHERE article.userId='user_1vMYWOOXCg5UhO8pZdGlvFfssMo'";
+    let userData: any;
+    const user = await fetch(`https://flashcoll-backend.glitch.me/clerk/user/${userId}`)
+      .then(data => {
+        let json = data.json();
+        json.then(res => {
+          userData = res;
+        })
+      })
     
-  //   let request = await this.harperDbService.getData(s)
-  //     .then(response => response.text())
-  //     // @ts-ignore
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log('error', error));
-  // }
-
+    await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where id = "${userId}"`)
+      .then(data => {
+        return data.json();
+      })
+      .then(result => {
+        if (result.length < 1) {
+          // Create user here!
+          const sqlQuery = `INSERT INTO flashcoll.user_profile (id, firstName, lastName, email, githubID, userImageURL, facebookURL, twitterURL, instagramURL) VALUE ("${userData.id}", "${userData.first_name}", "${userData.last_name}", "${''}", "${userData.external_accounts[0].provider_user_id}", "${userData.profile_image_url}", "${''}", "${''}", "${''}")`;
+          this.runSQLOnHarperDB(sqlQuery);
+        }
+      })
+  }
 }
