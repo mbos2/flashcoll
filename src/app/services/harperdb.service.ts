@@ -32,6 +32,27 @@ export class HarperDbService {
     console.log(options);
     return await fetch(this.harpedAPI, options);
   }
+
+  async generateUserSubprofileIfNotExist(userId: string) {
+    let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Accept', 'application/json');
+    // headers.append('Origin', 'http://localhost:3000');
+    // headers.append('Access-Control-Allow-Origin', '*')
+    //https://devmotiv-emailer.glitch.me/sendmail
+    // const user = fetch(`http://localhost:3000/clerk/user/${userId}`);
+    const user = fetch(`https://flashcoll-backend.glitch.me/clerk/user/${userId}`);
+    console.log(user);
+  }
+
+  // async testHarperDbDataByUserSubprofileId() {
+  //   let sqlQuery = `SELECT * FROM flashcoll_schema.subprofile WHERE id = '${this.userId}'`; // let sqlQuery = "SELECT * FROM flashcoll_schema.subprofile WHERE id = 'user_1vM31eHUtbuGEueo3aCoZdBwQ9o'";
+  //   let request = await this.harperDbService.getData(sqlQuery)
+  //     .then(response => response.text())
+  //     // @ts-ignore
+  //     .then(result => console.log(result))
+  //     .catch(error => console.log('error', error));
+  // }
   
   
   // async testHarperDbData() {

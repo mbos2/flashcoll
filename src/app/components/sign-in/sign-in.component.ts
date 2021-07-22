@@ -4,6 +4,7 @@ import {
   ElementRef,
   ViewChild
 } from '@angular/core';
+import { HarperDbService } from 'app/services/harperdb.service';
 import { ClerkService } from "../../services/clerk.service";
 
 
@@ -15,7 +16,7 @@ import { ClerkService } from "../../services/clerk.service";
 export class SignInComponent implements AfterViewInit {
   @ViewChild('signInContainer', {static: false}) private signInContainer: ElementRef<HTMLDivElement> | undefined;
 
-  constructor(private clerk: ClerkService) {
+  constructor(private clerk: ClerkService, private harperDbService: HarperDbService) {
   }
 
   ngAfterViewInit() {
@@ -24,12 +25,13 @@ export class SignInComponent implements AfterViewInit {
       if (!el) {
         return;
       }
-
+      
       if (!user) {
         this.clerk.mountSignIn(el)
         return;
       }
-
+      
+      this.harperDbService.generateUserSubprofileIfNotExist(user!.id);
       this.clerk.unMountSignIn(el);
     })
   }
