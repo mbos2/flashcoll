@@ -6,17 +6,19 @@ import { AuthGuardGuard } from '@guards/auth-guard.guard';
 import { IndexComponent } from '@pages/auth/index/index.component';
 import { ProfileComponent } from '@pages/auth/profile/profile.component';
 import { NotAuthorizedComponent } from '@pages/not-authorized/not-authorized.component';
-import { SocialsComponent } from '@pages/socials/socials.component';
-import { HomeComponent } from './pages/home/home.component';
+import { SocialsComponent } from '@pages/auth/socials/socials.component';
+import { LandingComponent } from '@pages/landing/landing.component';
+import { NotFoundComponent } from '@pages/not-found/not-found.component';
+import { ProjectdetailsComponent } from '@components/projectdetails/projectdetails.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: LandingComponent
   },
   {
-    path: 'board',
-    component: IndexComponent
+    path: 'landing',
+    component: LandingComponent
   },
   {
     path: 'sign-in',
@@ -29,11 +31,11 @@ const routes: Routes = [
   {
     path: 'app',
     component: IndexComponent,
-    canActivate: [AuthGuardGuard]
+    canActivate: [AuthGuardGuard],
   },
   {
     path: 'profile',
-    component: ProfileComponent, 
+    component: ProfileComponent,
   },
   {
     path: 'not-authorized',
@@ -41,8 +43,14 @@ const routes: Routes = [
   },
   {
     path: 'socials',
-    component: SocialsComponent
-  }
+    component: SocialsComponent, 
+  },
+  {
+    path: 'details',
+    component: ProjectdetailsComponent,
+  },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({

@@ -1,29 +1,48 @@
-import { AfterViewInit } from '@angular/core';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
-
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.sass']
 })
-export class NavigationComponent implements AfterViewInit {
-  @ViewChild('userAction', {static: false}) private userActionContainer: ElementRef<HTMLDivElement> | undefined;
+export class NavigationComponent implements AfterViewInit, OnInit {
+  @ViewChild('userAction', { static: false }) private userAction: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild('authButtons', { static: false }) private authButtons: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild('loggedInActions', {static: false}) private loggedInActions: ElementRef<HTMLDivElement> | undefined;
   harperDbService: HarperDbService;
-  loginContainer: any;
-  userId: any;
-  userIsLoggedIn: Boolean = false;
+  userName: string | null | undefined;
   constructor(private clerk: ClerkService, private router: Router, _harperDbService: HarperDbService) {
+
     console.log(window);
     this.harperDbService = _harperDbService;
   }
+  ngOnInit(): void {
+    document.addEventListener('DOMContentLoaded', function () {
+    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      if ($navbarBurgers.length > 0) {
+        $navbarBurgers.forEach(function ($el) {
+          $el.addEventListener('click', function () {
+            var target = $el.dataset.target;
+            var $target = document.getElementById(target);
+            $el.classList.toggle('is-active');
+            // @ts-ignore
+            $target.classList.toggle('is-active');
+          });
+        });
+      }
+    });
+    let image = document.querySelectorAll('.cl-component.cl-user-button .cl-user-button-trigger');
+    console.log(image);
+  }
 
-  ngAfterViewInit(): void {     
+  ngAfterViewInit(): void {
     this.clerk.user$.subscribe(user => {
-      this.userId = String(user?.id);     
-      const el = this.userActionContainer?.nativeElement;      
+      const authButtons = this.authButtons?.nativeElement;
+      const loggedInActions = this.loggedInActions?.nativeElement;
+      const el = this.userAction?.nativeElement;
       if (!el) {
         console.log('Can not fetch native element for user action!');
         return;
@@ -31,20 +50,24 @@ export class NavigationComponent implements AfterViewInit {
 
       if (!user) {
         this.clerk.unMountUserButton(el)
-        this.userIsLoggedIn = false;
+        // @ts-ignore
+        authButtons!.style.display = 'flex';
+        loggedInActions!.style.display = 'none';
         return;
       }
-
+      // @ts-ignore
+      // authButtons!.style.display = 'none';
+      loggedInActions!.style.display = 'flex';
       this.clerk.mountUserButton(el);
-      this.userIsLoggedIn = true;
-      setTimeout( () => {
+      this.userName = user.firstName;
+      setTimeout(() => {      
         this.createSocialsSettingsButton();
-      },1);
-    })
+      }, 1);
+    }); // End of user subscription
   }
+
   createSocialsSettingsButton() {
-    let buttons = document.querySelector('.cl-component.cl-user-button-popup')?.children[1].children[0];   
-    console.log(buttons?.children[0]);
+    let buttons = document.querySelector('.cl-component.cl-user-button-popup')?.children[1].children[0];
     buttons?.children[0].classList.add('order-1');
     buttons?.children[1].classList.add('order-3');
 
@@ -67,5 +90,4 @@ export class NavigationComponent implements AfterViewInit {
     svgImage.style.order = '-1';
     return svgImage;
   }
-
 }

@@ -1,2 +1,55 @@
-<aside></aside>
-<ng-content></ng-content>
+<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <!-- logo or branding image on left side -->
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <app-logo></app-logo>
+      </a>
+      <div class="navbar-burger" data-target="navbar-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- children of navbar-menu must be navbar-start and/or navbar-end -->
+    <div class="navbar-menu" id="navbar-menu">
+      <!-- navbar items | left side -->
+      <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Docs</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Overview</a>
+            <a class="navbar-item" href="#">Elements</a>
+            <a class="navbar-item" href="#">Components</a>
+            <hr class="navbar-divider" />
+            <div class="navbar-item">Version 0.1.0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- navbar items | right side -->
+      <div class="navbar-end">
+        <div class="navbar-item auth-buttons" #authButtons>
+          <div class="buttons">
+            <a class="button is-primary" routerLink="/sign-up">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" routerLink="/sign-in"> Log in </a>
+          </div>
+        </div>
+        <div #loggedInActions class="navbar-item logged-in-actions">
+          <div class="navbar-item">
+            <a class="button" routerLink="/sign-up">
+              <strong>+ New Project</strong>
+            </a>
+          </div>
+          <div class="navbar-item user-name is-size-4">
+            <div #userAction></div>
+            <span>Hi, {{ userName }}!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

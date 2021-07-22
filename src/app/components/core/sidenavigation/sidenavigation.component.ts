@@ -4,11 +4,11 @@ import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.sass']
+  selector: 'app-sidenavigation',
+  templateUrl: './sidenavigation.component.html',
+  styleUrls: ['./sidenavigation.component.sass']
 })
-export class HeaderComponent implements AfterViewInit {
+export class SidenavigationComponent implements AfterViewInit {
   @ViewChild('userAction', {static: false}) private userActionContainer: ElementRef<HTMLDivElement> | undefined;
   harperDbService: HarperDbService;
   loginContainer: any;
@@ -21,8 +21,8 @@ export class HeaderComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {     
     this.clerk.user$.subscribe(user => {
-      this.userId = String(user?.id);     
-      const el = this.userActionContainer?.nativeElement;      
+      this.userId = String(user?.id);
+      const el = this.userActionContainer?.nativeElement;
       if (!el) {
         console.log('Can not fetch native element for user action!');
         return;
@@ -36,12 +36,14 @@ export class HeaderComponent implements AfterViewInit {
 
       this.clerk.mountUserButton(el);
       this.userIsLoggedIn = true;
-      setTimeout( () => {
+      setTimeout(() => {
         this.createSocialsSettingsButton();
-      },1);
-    })
+      }, 1);
+    }); // End of user subscription
+
   }
-  createSocialsSettingsButton() {
+
+    createSocialsSettingsButton() {
     let buttons = document.querySelector('.cl-component.cl-user-button-popup')?.children[1].children[0];   
     console.log(buttons?.children[0]);
     buttons?.children[0].classList.add('order-1');
@@ -66,4 +68,5 @@ export class HeaderComponent implements AfterViewInit {
     svgImage.style.order = '-1';
     return svgImage;
   }
+
 }

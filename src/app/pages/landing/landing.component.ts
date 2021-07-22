@@ -3,12 +3,12 @@ import {ClerkService} from "../../services/clerk.service";
 import {filter, map, tap} from "rxjs/operators";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass'],
+  selector: 'app-landing',
+  templateUrl: './landing.component.html',
+  styleUrls: ['./landing.component.sass'],
   providers: [{provide: Window, useValue: window}],
 })
-export class HomeComponent implements OnInit {
+export class LandingComponent implements OnInit {
   @ViewChild('signUpContainer') private signUpContainer: ElementRef<HTMLDivElement> | undefined;
 
   public loggedIn = this.clerk.user$.pipe(map(u => !!u));
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
       } else {
         targetDiv!.style.display = "block";
       }
-};
+    };
   }
 
 }

@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import marked from 'marked';
 const gh = require('parse-github-url');
 
+
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.sass'],  
+  selector: 'app-projectdetails',
+  templateUrl: './projectdetails.component.html',
+  styleUrls: ['./projectdetails.component.sass']
 })
-export class IndexComponent implements OnInit {
+
+export class ProjectdetailsComponent implements OnInit {
   public markdownContent: string = '';
   private md: any;
   private showdown: any;
@@ -42,4 +44,3 @@ export class IndexComponent implements OnInit {
   } 
 
 }
-
