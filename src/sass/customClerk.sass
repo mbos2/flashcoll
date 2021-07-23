@@ -42,9 +42,24 @@
   transition: 0.3s !important
 
 .cl-component.cl-user-button .cl-user-button-trigger:hover
-  -webkit-box-shadow: 0px 0px 10px 0px #E5E5E5 !important
-  -moz-box-shadow: 0px 0px 10px 0px #E5E5E5 !important
-  box-shadow: 0px 0px 10px 0px #E5E5E5 !important
+  -webkit-box-shadow: 0px 0px 5px 0px #E5E5E5 !important
+  -moz-box-shadow: 0px 0px 5px 0px #E5E5E5 !important
+  box-shadow: 0px 0px 5px 0px #E5E5E5 !important
+
+.cl-themed-card
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75) !important
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75) !important
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75) !important
+  transition: 0.2s
+
+.cl-themed-card:hover, .cl-themed-card:focus
+  -webkit-box-shadow: 8px 8px 5px 0px rgba(0,0,0,0.75) !important
+  -moz-box-shadow: 8px 8px 5px 0px rgba(0,0,0,0.75) !important
+  box-shadow: 8px 8px 5px 0px rgba(0,0,0,0.75) !important
+  transform: scale(1.05)
+
+// .cl-content .cl-themed-card:nth-child(1)
+//   color: red !important
 
 .cl-component label
   color: #65cdae !important
@@ -75,3 +90,6 @@
 
 .navbar-item img
   max-height: 6rem !important
+
+.cl-icon.cl-icon-left-arrow
+  color: red !important

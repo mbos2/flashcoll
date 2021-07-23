@@ -3,34 +3,126 @@
     <h1 class="is-size-2 has-text-weight-bold">Social networks</h1>
     <p class="is-size-5">Manage settings related to your social networks</p>
   </section>
-  <section class="mt-6 pb-6 form courier">
+  <section class="mt-6 pb-6 form courier cl-themed-card">
     <section class="note has-text-centered has-text-weight-bold">
       <p class="pt-5 pb-2 is-size-4 is-size-5-mobile">
         ONLY NETWORKS YOU ADD WILL BE SHOWN TO OTHERS
       </p>
       <p class="is-size-6 pb-5">
-        DECIDE HOW OTHERS WILL BE ABLE TO GET IN TOUCH WITH YOU
+        DECIDE HOW OTHERS WILL BE ABLE TO CONNECT WITH YOU
       </p>
     </section>
     <section class="mt-2 p-5"></section>
-    <form [formGroup]="subProfileForm">
-      <!-- <label for="first-name">First Name: </label>
-      <input id="first-name" type="text" formControlName="firstName" /> -->
-      <section class="formFields" style="display: flex">
+    <form [formGroup]="subProfileForm" (ngSubmit)="onSubmit()">
+      <section
+        class="
+          formFields
+          is-flex
+          is-flex-direction-column
+          is-justify-content-center
+          is-align-items-center
+        "
+      >
         <div class="field">
-          <label class="label">Username</label>
+          <label class="label">E-mail</label>
           <div class="control has-icons-left has-icons-right">
             <input
               class="input is-success"
               type="text"
-              placeholder="Text input"
-              value="bulma"
+              placeholder="Your E-mail"
+              formControlName="email"
             />
             <span class="icon is-small is-left">
-              <span class="material-icons">email</span>
+              <i class="icofont-email"></i>
             </span>
           </div>
         </div>
+        <div class="field">
+          <label class="label">Facebook profile</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              class="input is-success form-control"
+              type="text"
+              placeholder="Your facebook profile"
+              formControlName="facebookURL"
+            />
+            <span class="icon is-small is-left">
+              <i class="icofont-facebook"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Twitter profile</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              class="input is-success form-control"
+              type="text"
+              placeholder="Your twitter profile"
+              formControlName="twitterURL"
+            />
+            <span class="icon is-small is-left">
+              <i class="icofont-twitter"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Instagram profile</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              class="input is-success form-control"
+              type="text"
+              placeholder="Your instagram profile"
+              formControlName="instagramURL"
+            />
+            <span class="icon is-small is-left">
+              <i class="icofont-instagram"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">LinkedIn profile</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              class="input is-success form-control"
+              type="text"
+              placeholder="Your linkedin profile"
+              formControlName="linkedInURL"
+            />
+            <span class="icon is-small is-left">
+              <i class="icofont-linkedin"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Your website URL</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              class="input is-success form-control"
+              type="text"
+              placeholder="Your website URL"
+              formControlName="portfolioURL"
+            />
+            <span class="icon is-small is-left">
+              <i class="icofont-web"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Github profile</label>
+          <div class="control has-icons-left has-icons-right">
+            <input
+              class="input is-success form-control"
+              type="text"
+              placeholder="Your github profile"
+              formControlName="githubProfileURL"
+              [attr.disabled]="githubDisabled"
+            />
+            <span class="icon is-small is-left">
+              <i class="icofont-github"></i>
+            </span>
+          </div>
+        </div>
+        <input type="submit" value="SUBMIT" />
       </section>
     </form>
   </section>

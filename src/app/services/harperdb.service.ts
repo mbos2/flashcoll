@@ -48,7 +48,7 @@ export class HarperDbService {
           .then(response => {
           let json = response.json();
           json.then(result => {
-            userData.githubURL = result.url;
+            userData.githubURL = `https://github.com/${result.login}`;
             userData.githubUsername = result.login;
             return userData;
           }).then(newUserData => {
@@ -58,7 +58,7 @@ export class HarperDbService {
               })
               .then(result => {
                 if (result.length < 1) {
-                  const sqlQuery = `INSERT INTO flashcoll.user_profile (id, firstName, lastName, email, githubProfileURL, githubID, githubUsername, userImageURL, facebookURL, twitterURL, instagramURL) VALUE ("${newUserData.id}", "${newUserData.first_name}", "${newUserData.last_name}", "${''}", "${newUserData.githubURL}", "${newUserData.external_accounts[0].provider_user_id}", "${newUserData.githubUsername}", "${userData.profile_image_url}", "${''}", "${''}", "${''}")`;
+                  const sqlQuery = `INSERT INTO flashcoll.user_profile (id, firstName, lastName, email, githubProfileURL, githubID, githubUsername, userImageURL, facebookURL, twitterURL, instagramURL, linkedInURL, portfolioURL) VALUE ("${newUserData.id}", "${newUserData.first_name}", "${newUserData.last_name}", "${''}", "${newUserData.githubURL}", "${newUserData.external_accounts[0].provider_user_id}", "${newUserData.githubUsername}", "${userData.profile_image_url}", "${''}", "${''}", "${''}", "${''}", "${''}")`;
                   this.runSQLOnHarperDB(sqlQuery);
                 }
               })

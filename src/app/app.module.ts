@@ -25,7 +25,7 @@ import { AppLayoutComponent } from './components/core/app-layout/app-layout.comp
 import { ProjectdetailsComponent } from './components/projectdetails/projectdetails.component';
 import { LogoComponent } from './components/shared/logo/logo.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoggedInRedirectGuard } from './logged-in-redirect-guard.guard';
 import { ProjectsComponent } from './pages/projects/projects.component';
 
@@ -54,7 +54,8 @@ import { ProjectsComponent } from './pages/projects/projects.component';
     MaterialExtensionsModule,
     MaterialExtensionsExperimentalModule,
     MatMenuModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [],
   providers: [
