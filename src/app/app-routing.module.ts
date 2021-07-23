@@ -10,6 +10,8 @@ import { SocialsComponent } from '@pages/auth/socials/socials.component';
 import { LandingComponent } from '@pages/landing/landing.component';
 import { NotFoundComponent } from '@pages/not-found/not-found.component';
 import { ProjectdetailsComponent } from '@components/projectdetails/projectdetails.component';
+import { LoggedInRedirectGuard } from './logged-in-redirect-guard.guard';
+import { ProjectsComponent } from '@pages/projects/projects.component';
 
 const routes: Routes = [
   {
@@ -22,11 +24,13 @@ const routes: Routes = [
   },
   {
     path: 'sign-in',
-    component: SignInComponent
+    component: SignInComponent,
+    canActivate: [LoggedInRedirectGuard],
   },
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
+    canActivate: [LoggedInRedirectGuard],
   },
   {
     path: 'app',
@@ -50,6 +54,10 @@ const routes: Routes = [
   {
     path: 'details',
     component: ProjectdetailsComponent,
+  },
+  {
+    path: 'projects',
+    component: ProjectsComponent,
   },
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'}

@@ -38,6 +38,7 @@ export class NavigationComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.clerk.user$.subscribe(user => {
+      console.log(user);
       const authButtons = this.authButtons?.nativeElement;
       const loggedInActions = this.loggedInActions?.nativeElement;
       const el = this.userAction?.nativeElement;

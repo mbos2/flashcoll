@@ -14,6 +14,7 @@ export class SocialsComponent implements OnInit, AfterViewInit {
     facebookURL: new FormControl(''),
     twitterURL: new FormControl(''),
     instagramURL: new FormControl(''),
+    githubProfileURL: new FormControl(''),
   });
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService) { }
 

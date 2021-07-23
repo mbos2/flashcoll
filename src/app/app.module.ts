@@ -26,6 +26,8 @@ import { ProjectdetailsComponent } from './components/projectdetails/projectdeta
 import { LogoComponent } from './components/shared/logo/logo.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoggedInRedirectGuard } from './logged-in-redirect-guard.guard';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppLayoutComponent,
     ProjectdetailsComponent,
     LogoComponent,
+    ProjectsComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         fullLibraryLoader: () => import('highlight.js'),
       }
     },
-    AuthGuardGuard
+    AuthGuardGuard,
+    LoggedInRedirectGuard
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

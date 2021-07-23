@@ -46,7 +46,6 @@ export class HarperDbService {
       }).then(userData => {
         fetch(`https://flashcoll-backend.glitch.me/github/user/${userData.external_accounts[0].provider_user_id}`)
           .then(response => {
-          console.log('hehe')
           let json = response.json();
           json.then(result => {
             userData.githubURL = result.url;
@@ -66,19 +65,6 @@ export class HarperDbService {
           })
         })
       })
-
-
-    
-    // await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where id = "${userId}"`)
-    //   .then(data => {
-    //     return data.json();
-    //   })
-    //   .then(result => {
-    //     if (result.length < 1) {
-    //       const sqlQuery = `INSERT INTO flashcoll.user_profile (id, firstName, lastName, email, githubID, githubUsername, userImageURL, facebookURL, twitterURL, instagramURL) VALUE ("${userData.id}", "${userData.first_name}", "${userData.last_name}", "${''}", "${userData.external_accounts[0].provider_user_id}", "${''}", "${userData.profile_image_url}", "${''}", "${''}", "${''}")`;
-    //       this.runSQLOnHarperDB(sqlQuery);
-    //     }
-    //   })
   }
 
   async getUserSubProfileByUserId(userId: string) {
