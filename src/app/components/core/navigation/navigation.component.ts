@@ -18,6 +18,7 @@ export class NavigationComponent implements AfterViewInit, OnInit {
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService) { }
 
   ngOnInit(): void {
+    console.log(window.Clerk)
     document.addEventListener('DOMContentLoaded', function () {
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
       if ($navbarBurgers.length > 0) {

@@ -12,6 +12,10 @@
         DECIDE HOW OTHERS WILL BE ABLE TO CONNECT WITH YOU
       </p>
     </section>
+    <app-notification
+      [isProfileUpdated]="profileIsUpdated"
+      [message]="notificationMessage"
+    ></app-notification>
     <section class="mt-2 p-5"></section>
     <form [formGroup]="subProfileForm" (ngSubmit)="onSubmit()">
       <section

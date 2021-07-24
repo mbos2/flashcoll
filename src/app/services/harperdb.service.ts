@@ -29,7 +29,7 @@ export class HarperDbService {
     });
   }
 
-  async runSQLOnHarperDB(sqlQuery: string) {
+  private async runSQLOnHarperDB(sqlQuery: string) {
     let options = this.harperRequestOptions(sqlQuery);
     return await fetch(this.harpedAPI, options);
   }
@@ -74,6 +74,17 @@ export class HarperDbService {
       });
   }
 
+  async updateUserSubProfileData(userData: any) {
+    const sqlQuery = `UPDATE flashcoll.user_profile 
+                      SET email="${userData.email}",
+                          facebookURL="${userData.facebookURL}",
+                          twitterURL="${userData.twitterURL}",
+                          instagramURL="${userData.instagramURL}",
+                          linkedInURL="${userData.linkedInURL}",
+                          portfolioURL="${userData.portfolioURL}"
+                      WHERE id = "${userData.id}"`;
+    return await this.runSQLOnHarperDB(sqlQuery);
+  }
   //#endregion
 
 }

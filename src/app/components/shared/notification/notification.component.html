@@ -1,0 +1,11 @@
+<div
+  class="notification is-light has-text-centered"
+  *ngIf="isProfileUpdated > 0"
+  [ngClass]="{
+    'is-success': isProfileUpdated == 1,
+    'is-danger': isProfileUpdated == 2
+  }"
+>
+  <button class="delete" (click)="deleteNotification()"></button>
+  {{ message }}
+</div>

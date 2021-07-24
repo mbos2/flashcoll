@@ -14,8 +14,7 @@ declare global {
     // Please keep the ts-ignore here for now
     // This is a known issue that will be fixed soon
     // @ts-ignore
-    Clerk?: Clerk,
-    clerk: Clerk
+    Clerk?: Clerk
   }
 }
 
@@ -39,9 +38,9 @@ export class ClerkService {
   }
 
   constructor(private windowRef: WindowRef, private router: Router, private ngZone: NgZone) {
-    console.log(window.Clerk)
     this.loadClerkJS().subscribe();
     this.user$.subscribe();
+    console.log(window.Clerk)
   }
 
   public signOut() {

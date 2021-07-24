@@ -14,10 +14,8 @@ import { HarperDbService } from './services/harperdb.service';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { SocialsComponent } from './pages/auth/socials/socials.component';
 import { MarkdownPipe } from './markdown.pipe';
-import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AuthGuardGuard } from '@guards/auth-guard.guard';
 import { NotAuthorizedComponent } from './pages/not-authorized/not-authorized.component';
-import { LandingComponent } from './pages/landing/landing.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 import {MatMenuModule} from '@angular/material/menu';
@@ -26,8 +24,12 @@ import { ProjectdetailsComponent } from './components/projectdetails/projectdeta
 import { LogoComponent } from './components/shared/logo/logo.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoggedInRedirectGuard } from './logged-in-redirect-guard.guard';
+import { LoggedInRedirectGuard } from './guards/logged-in-redirect-guard.guard';
 import { ProjectsComponent } from './pages/projects/projects.component';
+import { NotificationComponent } from './components/shared/notification/notification.component';
+import { NetworksComponent } from './pages/networks/networks.component';
+import { ClerkService } from './services/clerk.service';
+import { WindowRef } from './services/window.service';
 
 @NgModule({
   declarations: [
@@ -40,12 +42,13 @@ import { ProjectsComponent } from './pages/projects/projects.component';
     SocialsComponent,
     MarkdownPipe,
     NotAuthorizedComponent,
-    LandingComponent,
     NotFoundComponent,
     AppLayoutComponent,
     ProjectdetailsComponent,
     LogoComponent,
     ProjectsComponent,
+    NotificationComponent,
+    NetworksComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,12 +63,8 @@ import { ProjectsComponent } from './pages/projects/projects.component';
   exports: [],
   providers: [
     HarperDbService,
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        fullLibraryLoader: () => import('highlight.js'),
-      }
-    },
+    ClerkService,
+    WindowRef,
     AuthGuardGuard,
     LoggedInRedirectGuard
   ],
