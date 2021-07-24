@@ -6,9 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./notification.component.sass']
 })
 export class NotificationComponent  {
-  @Input() isProfileUpdated: any;
+  @Input() successIndicator: any;
   @Input() message: any;
-  
+
   deleteNotification() {
     const button = document.querySelector('.delete');
     const $notification = button?.parentNode;

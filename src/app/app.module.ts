@@ -30,6 +30,7 @@ import { NotificationComponent } from './components/shared/notification/notifica
 import { NetworksComponent } from './pages/networks/networks.component';
 import { ClerkService } from './services/clerk.service';
 import { WindowRef } from './services/window.service';
+import { NewProjectComponent } from './pages/auth/new-project/new-project.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { WindowRef } from './services/window.service';
     ProjectsComponent,
     NotificationComponent,
     NetworksComponent,
+    NewProjectComponent,
   ],
   imports: [
     BrowserModule,

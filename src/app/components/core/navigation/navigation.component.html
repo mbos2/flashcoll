@@ -37,7 +37,7 @@
 
       <!-- navbar items | right side -->
       <div class="navbar-end">
-        <div class="navbar-item auth-buttons" #authButtons>
+        <div id="authButtons" class="navbar-item auth-buttons" #authButtons>
           <div class="buttons">
             <a class="button is-primary" routerLink="/sign-up">
               <strong>Sign up</strong>
@@ -52,7 +52,7 @@
             </a>
           </div>
           <div class="navbar-item user-name is-size-4">
-            <div #userAction></div>
+            <div #userAction id="userAction"></div>
             <span>Hi, {{ userName }}!</span>
           </div>
         </div>

@@ -85,6 +85,12 @@ export class HarperDbService {
                       WHERE id = "${userData.id}"`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
+
+  async createNewProject(userData: any) {
+    const sqlQuery = `INSERT INTO flashcoll.project 
+                    (id, userProfileID, githubRepoURL)
+                    VALUE ("${''}")`;
+  }
   //#endregion
 
 }

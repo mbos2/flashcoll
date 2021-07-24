@@ -13,7 +13,7 @@
       </p>
     </section>
     <app-notification
-      [isProfileUpdated]="profileIsUpdated"
+      [successIndicator]="successIndicator"
       [message]="notificationMessage"
     ></app-notification>
     <section class="mt-2 p-5"></section>
@@ -126,7 +126,7 @@
             </span>
           </div>
         </div>
-        <input type="submit" value="SUBMIT" />
+        <input class="button is-primary" type="submit" value="SUBMIT" />
       </section>
     </form>
   </section>

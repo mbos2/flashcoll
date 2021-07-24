@@ -111,7 +111,7 @@ export class ClerkService {
     return load$;
   }
 
-  private static buildScriptTag(frontendApi = 'clerk.rv0d8.fjdqt.lcl.dev'): HTMLScriptElement {
+  private static buildScriptTag(frontendApi = 'clerk.flashcoll.com'): HTMLScriptElement {
     const script = document.createElement('script');
     script.setAttribute('data-clerk-frontend-api', frontendApi);
     script.async = true;

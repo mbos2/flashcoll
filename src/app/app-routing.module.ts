@@ -12,6 +12,7 @@ import { ProjectdetailsComponent } from '@components/projectdetails/projectdetai
 import { LoggedInRedirectGuard } from './guards/logged-in-redirect-guard.guard';
 import { ProjectsComponent } from '@pages/projects/projects.component';
 import { NetworksComponent } from '@pages/networks/networks.component';
+import { NewProjectComponent } from '@pages/auth/new-project/new-project.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,11 @@ const routes: Routes = [
   {
     path: 'projects',
     component: ProjectsComponent,
+  },
+  {
+    path: 'new-project',
+    component: NewProjectComponent,
+    canActivate: [AuthGuardGuard],
   },
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'}

@@ -33,8 +33,6 @@ export class NavigationComponent implements AfterViewInit, OnInit {
         });
       }
     });
-    let image = document.querySelectorAll('.cl-component.cl-user-button .cl-user-button-trigger');
-    console.log(image);
   }
 
   ngAfterViewInit(): void {
@@ -42,6 +40,7 @@ export class NavigationComponent implements AfterViewInit, OnInit {
       console.log(user);
       const authButtons = this.authButtons?.nativeElement;
       const loggedInActions = this.loggedInActions?.nativeElement;
+      console.log(loggedInActions, authButtons)
       const el = this.userAction?.nativeElement;
       if (!el) {
         console.log('Can not fetch native element for user action!');
@@ -55,7 +54,8 @@ export class NavigationComponent implements AfterViewInit, OnInit {
         return;
       }
       this.userName = user.firstName;
-      loggedInActions!.style.display = 'flex';
+      authButtons!.style.display = 'none';
+      loggedInActions!.style.display = 'flex';      
       this.clerk.mountUserButton(el);
       setTimeout(() => {
         // Appending new button to user action because component loads faster than user action button can fetch all elements on component init

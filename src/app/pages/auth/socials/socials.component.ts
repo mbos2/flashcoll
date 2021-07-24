@@ -11,7 +11,7 @@ import { NotificationsEnum } from 'app/enums/notificationMessagesEnum';
 })
 export class SocialsComponent implements AfterViewInit, OnInit {
   githubDisabled: boolean = true;
-  profileIsUpdated: number = 0;
+  successIndicator: number = 0;
   notificationMessage: any;
   subProfileForm = new FormGroup({
     id:  new FormControl(''), 
@@ -54,15 +54,15 @@ export class SocialsComponent implements AfterViewInit, OnInit {
       .then(data => {
         console.log(data)
         if (data.ok) {
-          this.profileIsUpdated = 1;
+          this.successIndicator = 1;
           this.notificationMessage = NotificationsEnum.profileUpdated;
         } else {
-          this.profileIsUpdated = 2;
+          this.successIndicator = 2;
           this.notificationMessage = NotificationsEnum.profileNotUpdated;
         }
       })
       .catch(error => {
-        this.profileIsUpdated = 2;
+        this.successIndicator = 2;
         this.notificationMessage = NotificationsEnum.profileNotUpdated;
         console.log(error)
       });
