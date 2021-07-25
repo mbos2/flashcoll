@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
+import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class HarperDbService {
- 
+  private REST_API = 'https://api.flashcoll.com';
   private harpedAPI = environment.HARPERDB_API;
   myHeaders = new Headers();
   userData: any;
@@ -40,11 +41,12 @@ export class HarperDbService {
 
   async generateUserSubprofileIfNotExist(userId: string) {
     let userdata: any;
-    await fetch(`https://flashcoll-backend.glitch.me/clerk/user/${userId}`)
+    await fetch(`${this.REST_API}/clerk/user/${userId}`)
       .then(data => {
         return userdata = data.json();      
       }).then(userData => {
-        fetch(`https://flashcoll-backend.glitch.me/github/user/${userData.external_accounts[0].provider_user_id}`)
+        console.log(userData);
+        fetch(`${this.REST_API}/github/user/${userData.external_accounts[0].provider_user_id}`)
           .then(response => {
           let json = response.json();
           json.then(result => {
@@ -86,11 +88,24 @@ export class HarperDbService {
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 
-  async createNewProject(userData: any) {
+  async createNewProject(userData: any, projectData: any) {
     const sqlQuery = `INSERT INTO flashcoll.project 
-                    (id, userProfileID, githubRepoURL)
-                    VALUE ("${''}")`;
+                    (id, userProfileID, githubRepoURL, projectTitle, projectShortDescription)
+                    VALUE ("${uuidv4()}", "${userData.id}", "${projectData.githubRepoURL}", "${projectData.projectTitle}", "${projectData.shortDescription}")`;
+    return await this.runSQLOnHarperDB(sqlQuery);
   }
+
+  async getAllUserProjects(userId: string) {
+        const sqlQuery = `SELECT * FROM flashcoll.project where userProfileID = "${userId}"`;
+    return await this.runSQLOnHarperDB(sqlQuery);
+  }
+
+  async getProjectDetails(projectId: string) {
+        const sqlQuery = `SELECT * FROM flashcoll.project where id = "${projectId}"`;
+    return await this.runSQLOnHarperDB(sqlQuery);
+  }
+
+
   //#endregion
 
 }
