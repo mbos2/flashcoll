@@ -112,7 +112,7 @@ export class ClerkService {
   }
   //clerk.ww3ul.6bc9k.lcl.dev
   //process.env.
-  private static buildScriptTag(frontendApi = String(process.env.CLERK_FRONTEND_API)): HTMLScriptElement {
+  private static buildScriptTag(frontendApi = ANGULAR_CLERK_FRONTEND_API): HTMLScriptElement {
     const script = document.createElement('script');
     script.setAttribute('data-clerk-frontend-api', frontendApi);
     script.async = true;
