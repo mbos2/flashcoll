@@ -33,6 +33,12 @@ export class NavigationComponent implements AfterViewInit, OnInit {
         });
       }
     });
+
+    let dropdown = document.querySelector('.dropdown')!;
+    dropdown.addEventListener('click', function(event) {
+        event.stopPropagation();
+        dropdown.classList.toggle('is-active');
+    });
   }
 
   ngAfterViewInit(): void {

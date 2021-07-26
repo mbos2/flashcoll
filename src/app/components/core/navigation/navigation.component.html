@@ -16,27 +16,41 @@
     <div class="navbar-menu" id="navbar-menu">
       <!-- navbar items | left side -->
       <div class="navbar-start">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">Docs</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" routerLink="/networks">
-              <strong>Networks</strong>
-            </a>
-            <a class="navbar-item" routerLink="/socials">
-              <strong>socials</strong>
-            </a>
-            <a class="navbar-item" routerLink="/projects">
-              <strong>projects</strong>
-            </a>
-            <a class="navbar-item" routerLink="/details">
-              <strong>details</strong>
-            </a>
-          </div>
-        </div>
+        <a class="navbar-item is-size-4" routerLink="/projects">
+          <strong>Projects</strong>
+        </a>
       </div>
 
       <!-- navbar items | right side -->
       <div class="navbar-end">
+        <div class="navbar-item dropdown">
+          <div class="dropdown-trigger">
+            <button
+              class="button has-text-centered"
+              aria-haspopup="true"
+              aria-controls="dropdown-menu"
+            >
+              <span class="has-text-centered">My actions</span>
+              <span class="icon is-small">
+                <i class="icofont-align-right"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a routerLink="/new-project" class="dropdown-item is-size-5">
+                <span>
+                  <i class="icofont-ui-add"></i>
+                </span>
+                New Project
+              </a>
+              <hr class="dropdown-divider" />
+              <a routerLink="/my-projects" class="dropdown-item is-size-5">
+                My projects
+              </a>
+            </div>
+          </div>
+        </div>
         <div id="authButtons" class="navbar-item auth-buttons" #authButtons>
           <div class="buttons">
             <a class="button is-primary" routerLink="/sign-up">
@@ -46,11 +60,6 @@
           </div>
         </div>
         <div #loggedInActions class="navbar-item logged-in-actions">
-          <div class="navbar-item">
-            <a class="button" routerLink="/sign-up">
-              <strong>+ New Project</strong>
-            </a>
-          </div>
           <div class="navbar-item user-name is-size-4">
             <div #userAction id="userAction"></div>
             <span>Hi, {{ userName }}!</span>

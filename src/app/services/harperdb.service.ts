@@ -90,18 +90,23 @@ export class HarperDbService {
 
   async createNewProject(userData: any, projectData: any) {
     const sqlQuery = `INSERT INTO flashcoll.project 
-                    (id, userProfileID, githubRepoURL, projectTitle, projectShortDescription)
+                    (id, userProfileID, githubRepoURL, projectTitle, projectShortDescription, )
                     VALUE ("${uuidv4()}", "${userData.id}", "${projectData.githubRepoURL}", "${projectData.projectTitle}", "${projectData.shortDescription}")`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 
   async getAllUserProjects(userId: string) {
-        const sqlQuery = `SELECT * FROM flashcoll.project where userProfileID = "${userId}"`;
+    const sqlQuery = `SELECT * FROM flashcoll.project where userProfileID = "${userId}"`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 
   async getProjectDetails(projectId: string) {
-        const sqlQuery = `SELECT * FROM flashcoll.project where id = "${projectId}"`;
+    const sqlQuery = `SELECT * FROM flashcoll.project where id = "${projectId}"`;
+    return await this.runSQLOnHarperDB(sqlQuery);
+  }
+
+  async getProjectsByTag(tag: string) {
+    const sqlQuery = `SELECT * FROM flashcoll.project WHERE "${tag}" = ANY(tags)`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 

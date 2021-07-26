@@ -1,1 +1,81 @@
-<p>new-project works!</p>
+<section class="my-6">
+  <section class="text-section courier has-text-centered-mobile">
+    <h1 class="is-size-2 has-text-weight-bold">Social networks</h1>
+    <p class="is-size-5">Manage settings related to your social networks</p>
+  </section>
+  <section class="mt-6 pb-6 form courier cl-themed-card">
+    <section class="note has-text-centered has-text-weight-bold">
+      <p class="pt-5 pb-2 is-size-4 is-size-5-mobile">CREATE PROJECT</p>
+      <p class="is-size-6 pb-5">FIELDS WITH * ARE REQUIRED</p>
+    </section>
+    <!-- <app-notification
+      [successIndicator]="successIndicator"
+      [message]="notificationMessage"
+    ></app-notification> -->
+    <section class="mt-2 p-5"></section>
+    <form [formGroup]="projectData" (ngSubmit)="createProject()">
+      <section
+        class="
+          formFields
+          is-flex
+          is-flex-direction-column
+          is-justify-content-center
+          is-align-items-center
+        "
+      >
+        <div class="field">
+          <label class="label">Select repository</label>
+          <div class="control">
+            <select formControlName="githubRepo" id="orders">
+              <option *ngFor="let repo of userRepositories">
+                {{ repo.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Title</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="Add Project Title"
+              formControlName="title"
+              [attr.disabled]="isDisabled"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Short description</label>
+          <div class="controlt">
+            <textarea
+              class="textarea"
+              placeholder="Short description"
+              type="text"
+              formControlName="shortDescription"
+              [attr.disabled]="isDisabled"
+            ></textarea>
+            <p class="help">Max 200 characters</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Add tags *</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              data-type="tags"
+              placeholder="Add tags"
+              formControlName="tags"
+            />
+          </div>
+        </div>
+
+        <input class="button is-primary" type="submit" value="SUBMIT" />
+      </section>
+    </form>
+  </section>
+</section>

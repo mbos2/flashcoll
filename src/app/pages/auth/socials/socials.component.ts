@@ -58,12 +58,12 @@ export class SocialsComponent implements AfterViewInit, OnInit {
           this.notificationMessage = NotificationsEnum.profileUpdated;
         } else {
           this.successIndicator = 2;
-          this.notificationMessage = NotificationsEnum.profileNotUpdated;
+          this.notificationMessage = NotificationsEnum.Error;
         }
       })
       .catch(error => {
         this.successIndicator = 2;
-        this.notificationMessage = NotificationsEnum.profileNotUpdated;
+        this.notificationMessage = NotificationsEnum.Error;
         console.log(error)
       });
   }

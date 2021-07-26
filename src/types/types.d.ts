@@ -6,4 +6,5 @@ declare module 'showdown';
 declare module 'highlightjs';
 declare module 'highlight.js';
 declare module 'node';
+declare module '@creativebulma/bulma-tagsinput'
 // declare module 'parse-github-url';
