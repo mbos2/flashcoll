@@ -1,4 +1,4 @@
-<span align="center">![flascoll-with-text-dark.png](https://i.postimg.cc/bNfS4CY3/flascoll-with-text-dark.png)</span>
+![flascoll-with-text-dark.png ><](https://i.postimg.cc/bNfS4CY3/flascoll-with-text-dark.png)
 
 ### Lorem ipsum dolor
 
