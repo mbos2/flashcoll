@@ -1,4 +1,4 @@
-![flascoll-with-text-dark.png](https://postimg.cc/7bXL2N22)
+![flascoll-with-text-dark.png](https://i.postimg.cc/bNfS4CY3/flascoll-with-text-dark.png)
 
 ### Lorem ipsum dolor
 
