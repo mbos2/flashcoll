@@ -1,4 +1,4 @@
-![Flashcoll logo with text](https://github.com/mbos2/flashcoll/blob/main/src/assets/images/flascoll-with-text-dark.png)
+![flascoll-with-text-dark.png](https://postimg.cc/7bXL2N22)
 
 ### Lorem ipsum dolor
 
