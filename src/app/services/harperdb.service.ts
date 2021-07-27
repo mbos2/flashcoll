@@ -88,10 +88,22 @@ export class HarperDbService {
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 
-  async createNewProject(userData: any, projectData: any) {
+  async createNewProject(projectData: any) {
+    const arr = String(projectData.tags).split(',');
     const sqlQuery = `INSERT INTO flashcoll.project 
-                    (id, userProfileID, githubRepoURL, projectTitle, projectShortDescription, )
-                    VALUE ("${uuidv4()}", "${userData.id}", "${projectData.githubRepoURL}", "${projectData.projectTitle}", "${projectData.shortDescription}")`;
+                    (id, userID, githubRepoURL, projectTitle, projectShortDescription, tags)
+                    VALUE ("${uuidv4()}", 
+                    "${projectData.userID}", 
+                    "${projectData.githubRepoURL}", 
+                    "${projectData.projectTitle}", 
+                    "${projectData.shortDescription}",
+                    "${projectData.tags}")`;
+
+    return await this.runSQLOnHarperDB(sqlQuery);
+  }
+
+  async getAllProjects() {
+    const sqlQuery = `SELECT * FROM flashcoll.project ORDER BY __createdtime__ DESC`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 
@@ -107,6 +119,7 @@ export class HarperDbService {
 
   async getProjectsByTag(tag: string) {
     const sqlQuery = `SELECT * FROM flashcoll.project WHERE "${tag}" = ANY(tags)`;
+    //SELECT * FROM flashcoll.project WHERE tags like '%ovca%'
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 

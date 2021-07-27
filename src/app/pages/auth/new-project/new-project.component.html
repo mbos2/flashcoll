@@ -8,10 +8,10 @@
       <p class="pt-5 pb-2 is-size-4 is-size-5-mobile">CREATE PROJECT</p>
       <p class="is-size-6 pb-5">FIELDS WITH * ARE REQUIRED</p>
     </section>
-    <!-- <app-notification
+    <app-notification
       [successIndicator]="successIndicator"
       [message]="notificationMessage"
-    ></app-notification> -->
+    ></app-notification>
     <section class="mt-2 p-5"></section>
     <form [formGroup]="projectData" (ngSubmit)="createProject()">
       <section
@@ -24,9 +24,13 @@
         "
       >
         <div class="field">
-          <label class="label">Select repository</label>
-          <div class="control">
-            <select formControlName="githubRepo" id="orders">
+          <div class="select">
+            <select
+              formControlName="projectTitle"
+              id="orders"
+              (change)="changeRepo($event)"
+            >
+              <option selected>Select repository . . .</option>
               <option *ngFor="let repo of userRepositories">
                 {{ repo.name }}
               </option>
@@ -41,10 +45,11 @@
               class="input"
               type="text"
               placeholder="Add Project Title"
-              formControlName="title"
+              formControlName="projectTitle"
               [attr.disabled]="isDisabled"
             />
           </div>
+          <p class="help">Pulled from github repository</p>
         </div>
 
         <div class="field">
@@ -57,7 +62,7 @@
               formControlName="shortDescription"
               [attr.disabled]="isDisabled"
             ></textarea>
-            <p class="help">Max 200 characters</p>
+            <p class="help">Pulled from github repository</p>
           </div>
         </div>
 
@@ -70,6 +75,7 @@
               data-type="tags"
               placeholder="Add tags"
               formControlName="tags"
+              #tags
             />
           </div>
         </div>

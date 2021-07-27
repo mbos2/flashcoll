@@ -1,1 +1,14 @@
-<p>projects works!</p>
+<section class="my-6">
+  <section class="text-section courier has-text-centered">
+    <h1 class="is-size-2 has-text-weight-bold">Discover projects</h1>
+  </section>
+</section>
+
+<ngx-masonry [options]="myOptions" [ordered]="true" class="columns py-2">
+  <app-project-card
+    ngxMasonryItem
+    class="column is-6-desktop is-12-mobile mt-2"
+    *ngFor="let project of projects"
+    [project]="project"
+  ></app-project-card>
+</ngx-masonry>

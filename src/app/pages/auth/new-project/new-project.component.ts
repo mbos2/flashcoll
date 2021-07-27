@@ -4,6 +4,7 @@ import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
 import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
 import { GithubService } from 'app/services/github.service';
+import { NotificationsEnum } from 'app/enums/notificationMessagesEnum';
 
 export interface GithubRepoData {
   name: string,
@@ -17,14 +18,16 @@ export interface GithubRepoData {
   styleUrls: ['./new-project.component.sass']
 })
 export class NewProjectComponent implements AfterViewInit {
-  isDisabled = true;
   @ViewChild('tags', { static: false }) private tags: ElementRef<HTMLInputElement> | undefined;
+  isDisabled = true;
+  successIndicator: number = 0;
+  notificationMessage: any;
   userRepositories: Array<GithubRepoData> = [];
   projectData = new FormGroup({
     userID:  new FormControl(''),
-    title: new FormControl(''),
+    projectTitle: new FormControl(''),
     shortDescription: new FormControl(''),
-    githubRepo: new FormControl(''),
+    githubRepoURL: new FormControl(''),
     tags: new FormControl(''),
   });
 
@@ -33,14 +36,14 @@ export class NewProjectComponent implements AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.clerk.user$.subscribe(user => {
-      console.log(user);
-       console.log(user?.data.external_accounts[0].provider_user_id)
+      this.projectData.patchValue({
+        userID: user?.id
+      })
       const repos = this.githubService.getUserRepositories(user?.data.external_accounts[0].provider_user_id)
       .then(value => {
         return value.json()
       })
-        .then(repos => {
-          console.log(repos)
+      .then(repos => {
           repos.forEach((repo: GithubRepoData) => {
             this.userRepositories.push({
               name: repo.name,
@@ -49,7 +52,6 @@ export class NewProjectComponent implements AfterViewInit {
             })
           });
         })
-      console.log(this.userRepositories);
     });
   }
 
@@ -58,7 +60,40 @@ export class NewProjectComponent implements AfterViewInit {
 
   async createProject() {
     const tags = this.tags?.nativeElement.value;
-    console.log(tags?.split(','));
+    const arrayOfTags = tags?.split(',');
+    this.projectData.patchValue({
+      tags: arrayOfTags
+    })
+
+    await this.harperDbService.createNewProject(this.projectData.value)
+      .then(data => {
+        console.log(data)
+        if (data.ok) {
+          this.successIndicator = 1;
+          this.notificationMessage = NotificationsEnum.ProjectCreated;
+          setTimeout(() => {
+            this.successIndicator = 0
+          },3000)
+        } else {
+          this.successIndicator = 2;
+          this.notificationMessage = NotificationsEnum.Error;
+          setTimeout(() => {
+            this.successIndicator = 0
+          },5000)
+        }
+      });
   }
 
+  async changeRepo(e: any) {
+    let repository: any;
+    this.userRepositories.find(function(repo) {
+      if (repo.name == e.target.value)
+        repository = repo;
+    });
+    this.projectData.patchValue({
+      projectTitle: repository.name,
+      shortDescription: repository.description,
+      githubRepoURL: repository.html_url
+    })
+  }
 }

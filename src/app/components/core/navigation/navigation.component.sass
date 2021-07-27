@@ -13,3 +13,22 @@
 
 .dropdown-menu
   left: auto
+
+@media only screen and (max-width: 1023px) and (min-width: 769px)
+  .navbar-end-flex
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    align-content: center
+
+@media only screen and (max-width: 768px)
+  .navbar-end-flex
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: left
+    align-content: center
+
+button, .navbar-item
+  transition: 0.2s

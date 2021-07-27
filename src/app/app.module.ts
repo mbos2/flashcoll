@@ -1,5 +1,6 @@
 import {  CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,9 +19,7 @@ import { AuthGuardGuard } from '@guards/auth-guard.guard';
 import { NotAuthorizedComponent } from './pages/not-authorized/not-authorized.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
-import {MatMenuModule} from '@angular/material/menu';
-import { AppLayoutComponent } from './components/core/app-layout/app-layout.component';
-import { ProjectdetailsComponent } from './components/projectdetails/projectdetails.component';
+import { ProjectdetailsComponent } from './pages/projectdetails/projectdetails.component';
 import { LogoComponent } from './components/shared/logo/logo.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,6 +30,8 @@ import { NetworksComponent } from './pages/networks/networks.component';
 import { ClerkService } from './services/clerk.service';
 import { WindowRef } from './services/window.service';
 import { NewProjectComponent } from './pages/auth/new-project/new-project.component';
+import { LoaderComponent } from './loader/loader.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -44,13 +45,14 @@ import { NewProjectComponent } from './pages/auth/new-project/new-project.compon
     MarkdownPipe,
     NotAuthorizedComponent,
     NotFoundComponent,
-    AppLayoutComponent,
     ProjectdetailsComponent,
     LogoComponent,
     ProjectsComponent,
     NotificationComponent,
     NetworksComponent,
     NewProjectComponent,
+    LoaderComponent,
+    ProjectCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +60,9 @@ import { NewProjectComponent } from './pages/auth/new-project/new-project.compon
     BrowserAnimationsModule,
     MaterialExtensionsModule,
     MaterialExtensionsExperimentalModule,
-    MatMenuModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxMasonryModule,
   ],
   exports: [],
   providers: [

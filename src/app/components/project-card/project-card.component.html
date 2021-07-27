@@ -1,0 +1,160 @@
+<!-- <div class="card">
+  <header class="card-header p-2">
+    <figure class="image is-64x64">
+      <img class="is-rounded" [src]="user?.userImageURL" />
+    </figure>
+    <div
+      style="gap: 0.5rem"
+      class="
+        px-2
+        is-flex
+        is-flex-direction-column
+        is-justify-content-center
+        is-align-items-center
+        is-align-content-center
+        is-size-5
+      "
+    >
+      {{ user?.firstName }} {{ user?.lastName }}
+      <span class="tag is-primary is-size-7"> Looking for collaborators </span>
+    </div>
+  </header>
+  <header class="card-header">
+    <p
+      class="
+        mt-2
+        card-header-title
+        is-size-3
+        is-flex
+        is-flex-direction-column
+        is-justify-content-center
+        is-align-items-center
+        is-align-content-center
+      "
+    >
+      {{ project.projectTitle }}
+    </p>
+  </header>
+  <div class="card-content">
+    <div class="content is-size-4 has-text-centered has-text-weight-light">
+      {{ project.projectShortDescription }}
+    </div>
+    <div class="content tags is-size-6 has-text-centered">
+      {{ project.tags }}
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a [routerLink]="['/project', project.id]" class="card-footer-item"
+      >READ MORE</a
+    >
+  </footer>
+</div> -->
+
+<div class="columns card">
+  <div
+    class="
+      column
+      is-4
+      is-flex
+      is-flex-direction-column
+      is-justify-content-center
+      is-align-content-center
+      is-align-items-center
+    "
+  >
+    <header
+      class="
+        is-darker-background
+        card-header
+        is-flex
+        is-justify-content-center
+        is-align-content-center
+        is-align-items-center
+        is-flex-direction-column
+        p-2
+      "
+    >
+      <div>
+        <figure class="image is-64x64">
+          <img class="is-rounded" [src]="user?.userImageURL" />
+        </figure>
+      </div>
+      <div
+        style="gap: 0.5rem"
+        class="
+          px-2
+          is-flex
+          is-flex-direction-column
+          is-justify-content-center
+          is-align-items-center
+          is-align-content-center
+          is-size-5
+        "
+      >
+        {{ user?.firstName }} {{ user?.lastName }}
+        <span class="tag is-primary is-size-7">
+          Looking for collaborators
+        </span>
+        <a
+          [routerLink]="['/project', project.id]"
+          class="card-footer-item mt-2 has-text-centered read-more"
+          >READ MORE</a
+        >
+      </div>
+    </header>
+    <footer
+      *ngIf="ifProjectHasTags"
+      class="
+        card-footer
+        tags
+        is-size-6
+        has-text-centered
+        is-darker-background
+        mt-2
+      "
+    ></footer>
+  </div>
+  <div
+    class="column is-flex is-flex-direction-column is-justify-content-center"
+  >
+    <header class="card-header is-darker-background">
+      <p
+        class="
+          mt-2
+          is-text-orange
+          card-header-title
+          is-size-3
+          is-flex
+          is-flex-direction-column
+          is-justify-content-center
+          is-align-items-center
+          is-align-content-center
+        "
+      >
+        {{ project.projectTitle }}
+      </p>
+    </header>
+    <div class="card-content is-darker-background mt-2 is-text-platinum-light">
+      <div
+        class="content description is-size-4 has-text-weight-light"
+        [class]="noDescriptionClass"
+      >
+        {{ project.projectShortDescription }}
+      </div>
+    </div>
+    <footer
+      *ngIf="ifProjectHasTags"
+      class="
+        card-footer
+        tags
+        is-size-6
+        has-text-centered
+        is-darker-background
+        mt-2
+        p-2
+      "
+    >
+      {{ project.tags }}
+    </footer>
+  </div>
+</div>

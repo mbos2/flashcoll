@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HarperDbService } from 'app/services/harperdb.service';
 import marked from 'marked';
 const gh = require('parse-github-url');
 
@@ -13,20 +15,31 @@ export class ProjectdetailsComponent implements OnInit {
   public markdownContent: string = '';
   private md: any;
   private showdown: any;
-  constructor() {
+  id: any;
+  constructor(private route: ActivatedRoute, private harperDbService: HarperDbService) {
+    this.id = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
-    this.postData('mbos2', 'demo-markdown', 'demo2').
+    this.postData().
       then(res => {
         this.markdownContent = marked(res);
       });
   }
 
-  async postData(githubUsername: string, githubRepository: string, mdFileName: string) {
+  async postData() {
   // Default options are marked with *
-    const githubUrl = gh('https://github.com/mbos2/demo-markdown/blob/main/demo2.md');
-    let url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/${githubUrl.filepath}`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
+    let projectGithubURL;
+    await this.harperDbService.getProjectDetails(this.id)
+      .then(result => {
+        return result.json()
+      }).then(data => {
+        projectGithubURL = data[0].githubRepoURL;
+      });
+    console.log(projectGithubURL)
+    const githubUrl = gh(projectGithubURL);
+    console.log(gh('https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md'))
+    let url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/README.md`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
     const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin

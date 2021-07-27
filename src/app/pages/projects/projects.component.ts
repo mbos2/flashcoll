@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ClerkService } from 'app/services/clerk.service';
+import { HarperDbService } from 'app/services/harperdb.service';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-projects',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectsComponent implements OnInit {
 
-  constructor() { }
+  projects: any;
+  public myOptions: NgxMasonryOptions = {
+    gutter: 0,
+  };
+ 
+  constructor(private clerk: ClerkService, private harperDbService: HarperDbService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.harperDbService.getAllProjects()
+      .then(result => {
+        return result.json();
+      })
+      .then(data => {
+        this.projects = data;
+        console.log(data)
+      })
   }
 
 }

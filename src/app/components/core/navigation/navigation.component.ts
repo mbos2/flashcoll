@@ -81,7 +81,7 @@ export class NavigationComponent implements AfterViewInit, OnInit {
     newButton.id = 'socials';
     newButton.classList.add('_3bDedxNjPBtkn-BuP2nhY2','_11ZVSe2vGmcrGqZUhdWgXB', '_3roVnjNLYXA8oyjSMR_tyO', '_2eZklRe9WnyPiLM2T0R6XG', 'cl-accounts-manager-button', '_1WVBqxUEPjqhMKyLv7b558', 'order-2');
     newButton.style.display = 'flex';
-    newButton.innerHTML = 'Manage socials';
+    newButton.innerHTML = 'My networks';
     newButton.href = "socials";
 
     newButton.appendChild(this.createSvg());
