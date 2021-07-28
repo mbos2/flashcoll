@@ -45,7 +45,7 @@ export class HarperDbService {
       .then(data => {
         return userdata = data.json();      
       }).then(userData => {
-        console.log(userData);
+
         fetch(`${this.REST_API}/github/user/${userData.external_accounts[0].provider_user_id}`)
           .then(response => {
           let json = response.json();

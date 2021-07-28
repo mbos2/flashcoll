@@ -23,7 +23,6 @@ export class ProjectCardComponent implements OnInit {
       this.project.projectShortDescription = 'No short description at this time. But click on Read More to find out more about this project :)';
       this.noDescriptionClass = 'no-description';
     }
-    console.log(this.project.tags)
     await this.harperDbService.getUserSubProfileByUserId(this.project.userID)
       .then(result => {
         if (this.project.tags == "" || this.project.tags == null || this.project.tags == undefined) {

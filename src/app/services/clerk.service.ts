@@ -40,7 +40,6 @@ export class ClerkService {
   constructor(private windowRef: WindowRef, private router: Router, private ngZone: NgZone) {
     this.loadClerkJS().subscribe();
     this.user$.subscribe();
-    console.log(window.Clerk)
   }
 
   public signOut() {

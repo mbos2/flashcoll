@@ -18,7 +18,6 @@ export class NavigationComponent implements AfterViewInit, OnInit {
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService) { }
 
   ngOnInit(): void {
-    console.log(window.Clerk)
     document.addEventListener('DOMContentLoaded', function () {
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
       if ($navbarBurgers.length > 0) {
@@ -43,10 +42,8 @@ export class NavigationComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.clerk.user$.subscribe(user => {
-      console.log(user);
       const authButtons = this.authButtons?.nativeElement;
       const loggedInActions = this.loggedInActions?.nativeElement;
-      console.log(loggedInActions, authButtons)
       const el = this.userAction?.nativeElement;
       if (!el) {
         console.log('Can not fetch native element for user action!');

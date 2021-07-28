@@ -1,55 +1,3 @@
-<!-- <div class="card">
-  <header class="card-header p-2">
-    <figure class="image is-64x64">
-      <img class="is-rounded" [src]="user?.userImageURL" />
-    </figure>
-    <div
-      style="gap: 0.5rem"
-      class="
-        px-2
-        is-flex
-        is-flex-direction-column
-        is-justify-content-center
-        is-align-items-center
-        is-align-content-center
-        is-size-5
-      "
-    >
-      {{ user?.firstName }} {{ user?.lastName }}
-      <span class="tag is-primary is-size-7"> Looking for collaborators </span>
-    </div>
-  </header>
-  <header class="card-header">
-    <p
-      class="
-        mt-2
-        card-header-title
-        is-size-3
-        is-flex
-        is-flex-direction-column
-        is-justify-content-center
-        is-align-items-center
-        is-align-content-center
-      "
-    >
-      {{ project.projectTitle }}
-    </p>
-  </header>
-  <div class="card-content">
-    <div class="content is-size-4 has-text-centered has-text-weight-light">
-      {{ project.projectShortDescription }}
-    </div>
-    <div class="content tags is-size-6 has-text-centered">
-      {{ project.tags }}
-    </div>
-  </div>
-  <footer class="card-footer">
-    <a [routerLink]="['/project', project.id]" class="card-footer-item"
-      >READ MORE</a
-    >
-  </footer>
-</div> -->
-
 <div class="columns card">
   <div class="column is-4 centered">
     <header
@@ -67,7 +15,13 @@
       <div>
         <figure class="image is-96x96 is-64x64-mobile">
           <a [routerLink]="['/profile', project.userID]">
-            <img class="is-rounded" [src]="user?.userImageURL" />
+            <img
+              class="is-rounded"
+              [src]="user?.userImageURL"
+              width="64"
+              height="64"
+              alt="github-user-image-projectcard"
+            />
           </a>
         </figure>
       </div>
@@ -118,7 +72,12 @@
     </header>
     <div class="card-content is-darker-background mt-2 is-text-platinum-light">
       <div
-        class="content description is-size-4 has-text-weight-light"
+        class="
+          content
+          description
+          is-size-4
+          has-text-weight-light has-text-centered has-text-left-mobile
+        "
         [class]="noDescriptionClass"
       >
         {{ project.projectShortDescription }}

@@ -69,7 +69,6 @@ export class NewProjectComponent implements AfterViewInit {
 
     await this.harperDbService.createNewProject(this.projectData.value)
       .then(data => {
-        console.log(data)
         if (data.ok) {
           this.successIndicator = 1;
           this.notificationMessage = NotificationsEnum.ProjectCreated;
@@ -91,7 +90,6 @@ export class NewProjectComponent implements AfterViewInit {
     this.userRepositories.find(function (repo) {      
       if (repo.name == e.target.value)
         repository = repo;
-      console.log(repository)
     });
     this.projectData.patchValue({
       projectTitle: repository.name,
@@ -99,6 +97,5 @@ export class NewProjectComponent implements AfterViewInit {
       githubRepoURL: repository.html_url,
       githubUsername: repository.githubUsername
     })
-    console.log(this.projectData)
   }  
 }

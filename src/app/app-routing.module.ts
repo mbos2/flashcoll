@@ -60,6 +60,10 @@ const routes: Routes = [
   {
     path: 'project/:id',
     component: ProjectdetailsComponent,
+    data: {
+      title: 'Flashcoll project name',
+      description:'Flashcoll project description',
+    } 
   },
   {
     path: 'projects',

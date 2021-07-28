@@ -65,7 +65,6 @@ export class ProjectdetailsComponent implements OnInit {
         }); 
       });
     const githubUrl = gh(this.projectGithubURL);
-    console.log(gh('https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md'))
     let url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/README.md`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
     const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.

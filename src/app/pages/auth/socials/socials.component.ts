@@ -49,10 +49,8 @@ export class SocialsComponent implements AfterViewInit, OnInit {
   }
 
   async onSubmit() {
-    console.log(this.subProfileForm.value);
     return await this.harperDbService.updateUserSubProfileData(this.subProfileForm.value)
       .then(data => {
-        console.log(data)
         if (data.ok) {
           this.successIndicator = 1;
           this.notificationMessage = NotificationsEnum.profileUpdated;
@@ -64,7 +62,6 @@ export class SocialsComponent implements AfterViewInit, OnInit {
       .catch(error => {
         this.successIndicator = 2;
         this.notificationMessage = NotificationsEnum.Error;
-        console.log(error)
       });
   }
 }

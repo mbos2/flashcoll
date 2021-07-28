@@ -24,7 +24,6 @@ export class ProjectsComponent implements OnInit {
       })
       .then(data => {
         this.projects = data;
-        console.log(data)
       })
   }
 
