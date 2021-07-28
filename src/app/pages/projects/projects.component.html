@@ -3,7 +3,7 @@
     <h1 class="is-size-2 has-text-weight-bold">Discover projects</h1>
   </section>
 </section>
-
+<!-- 
 <ngx-masonry [options]="myOptions" [ordered]="true" class="columns py-2">
   <app-project-card
     ngxMasonryItem
@@ -11,4 +11,14 @@
     *ngFor="let project of projects"
     [project]="project"
   ></app-project-card>
-</ngx-masonry>
+</ngx-masonry> -->
+<app-project-card
+  class="
+    column
+    is-12-desktop is-12-mobile
+    mt-2
+    is-flex is-justify-content-center
+  "
+  *ngFor="let project of projects"
+  [project]="project"
+></app-project-card>

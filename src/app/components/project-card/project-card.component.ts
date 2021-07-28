@@ -41,7 +41,6 @@ export class ProjectCardComponent implements OnInit {
       this.tags.push(` #${tag}`);
     });
     this.project.tags = this.tags.join(' ');
-    console.log(this.tags)
   }
 
 }

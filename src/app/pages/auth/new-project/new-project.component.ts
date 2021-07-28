@@ -9,7 +9,8 @@ import { NotificationsEnum } from 'app/enums/notificationMessagesEnum';
 export interface GithubRepoData {
   name: string,
   description: string,
-  html_url: string
+  html_url: string,
+  githubUsername: string,
 }
 
 @Component({
@@ -23,8 +24,10 @@ export class NewProjectComponent implements AfterViewInit {
   successIndicator: number = 0;
   notificationMessage: any;
   userRepositories: Array<GithubRepoData> = [];
+  githubUsername: any;
   projectData = new FormGroup({
-    userID:  new FormControl(''),
+    userID: new FormControl(''),
+    githubUsername: new FormControl(''),
     projectTitle: new FormControl(''),
     shortDescription: new FormControl(''),
     githubRepoURL: new FormControl(''),
@@ -37,25 +40,24 @@ export class NewProjectComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.clerk.user$.subscribe(user => {
       this.projectData.patchValue({
-        userID: user?.id
+        userID: user?.id       
       })
       const repos = this.githubService.getUserRepositories(user?.data.external_accounts[0].provider_user_id)
       .then(value => {
         return value.json()
       })
-      .then(repos => {
-          repos.forEach((repo: GithubRepoData) => {
+        .then(repos => {          
+          repos.forEach((repo: any) => {
+            this.githubUsername = repo.owner.login;
             this.userRepositories.push({
               name: repo.name,
               description: repo.description,
-              html_url: repo.html_url
+              html_url: repo.html_url,
+              githubUsername: this.githubUsername
             })
           });
         })
     });
-  }
-
-  ngOnInit(): void {
   }
 
   async createProject() {
@@ -86,14 +88,17 @@ export class NewProjectComponent implements AfterViewInit {
 
   async changeRepo(e: any) {
     let repository: any;
-    this.userRepositories.find(function(repo) {
+    this.userRepositories.find(function (repo) {      
       if (repo.name == e.target.value)
         repository = repo;
+      console.log(repository)
     });
     this.projectData.patchValue({
       projectTitle: repository.name,
       shortDescription: repository.description,
-      githubRepoURL: repository.html_url
+      githubRepoURL: repository.html_url,
+      githubUsername: repository.githubUsername
     })
-  }
+    console.log(this.projectData)
+  }  
 }

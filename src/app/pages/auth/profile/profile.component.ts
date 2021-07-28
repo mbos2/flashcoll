@@ -42,4 +42,5 @@ export class ProfileComponent implements AfterViewInit {
       this.clerk.mountUserProfile(el);
     })
   }
+
 }

@@ -13,6 +13,7 @@ import { LoggedInRedirectGuard } from './guards/logged-in-redirect-guard.guard';
 import { ProjectsComponent } from '@pages/projects/projects.component';
 import { NetworksComponent } from '@pages/networks/networks.component';
 import { NewProjectComponent } from '@pages/auth/new-project/new-project.component';
+import { FlashcollProfileComponent } from '@pages/flashcoll-profile/flashcoll-profile.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuardGuard],
+  },
+  {
+    path: 'profile/:id',
+    component: FlashcollProfileComponent,
   },
   {
     path: 'not-authorized',

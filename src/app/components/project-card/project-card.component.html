@@ -51,17 +51,7 @@
 </div> -->
 
 <div class="columns card">
-  <div
-    class="
-      column
-      is-4
-      is-flex
-      is-flex-direction-column
-      is-justify-content-center
-      is-align-content-center
-      is-align-items-center
-    "
-  >
+  <div class="column is-4 centered">
     <header
       class="
         is-darker-background
@@ -71,12 +61,14 @@
         is-align-content-center
         is-align-items-center
         is-flex-direction-column
-        p-2
+        p-6
       "
     >
       <div>
-        <figure class="image is-64x64">
-          <img class="is-rounded" [src]="user?.userImageURL" />
+        <figure class="image is-96x96 is-64x64-mobile">
+          <a [routerLink]="['/profile', project.userID]">
+            <img class="is-rounded" [src]="user?.userImageURL" />
+          </a>
         </figure>
       </div>
       <div
@@ -88,11 +80,12 @@
           is-justify-content-center
           is-align-items-center
           is-align-content-center
-          is-size-5
+          is-size-4
+          is-size-5-touch
         "
       >
         {{ user?.firstName }} {{ user?.lastName }}
-        <span class="tag is-primary is-size-7">
+        <span class="tag is-primary is-size-5 is-size-7-touch">
           Looking for collaborators
         </span>
         <a
@@ -102,17 +95,6 @@
         >
       </div>
     </header>
-    <footer
-      *ngIf="ifProjectHasTags"
-      class="
-        card-footer
-        tags
-        is-size-6
-        has-text-centered
-        is-darker-background
-        mt-2
-      "
-    ></footer>
   </div>
   <div
     class="column is-flex is-flex-direction-column is-justify-content-center"
@@ -123,7 +105,7 @@
           mt-2
           is-text-orange
           card-header-title
-          is-size-3
+          is-size-4
           is-flex
           is-flex-direction-column
           is-justify-content-center

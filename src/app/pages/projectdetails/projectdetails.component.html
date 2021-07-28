@@ -4,5 +4,95 @@
     id="hellomarkdown"
     [innerHTML]="markdownContent | markdown"
   ></section>
-  <section class="column is-5">hello</section>
+  <section class="column is-5">
+    <div class="card">
+      <div class="card-content about">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-96x96 is-64x64-mobile">
+              <img class="is-rounded" [src]="userProfile?.userImageURL" />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">
+              {{ userProfile?.firstName }} {{ userProfile?.lastName }}
+            </p>
+          </div>
+        </div>
+
+        <div class="card-content socials">
+          <p class="subtitle">
+            If you would like to collaborate and talk about the project, you can
+            contact me on links below
+          </p>
+          <a class="button is-medium is-facebook" taget="_blank">
+            <span class="icon">
+              <i class="icofont-facebook"></i>
+            </span>
+          </a>
+          <a class="button is-medium is-twitter" taget="_blank">
+            <span class="icon">
+              <i class="icofont-twitter"></i>
+            </span>
+          </a>
+          <a class="button is-medium is-instagram" target="_blank">
+            <span class="icon">
+              <i class="icofont-instagram"></i>
+            </span>
+          </a>
+          <a class="button is-medium is-github" target="_blank">
+            <span class="icon">
+              <i class="icofont-github"></i>
+            </span>
+          </a>
+          <a class="button is-medium is-linkedin" target="_blank">
+            <span class="icon">
+              <i class="icofont-linkedin"></i>
+            </span>
+          </a>
+          <a class="button is-medium is-email" target="_blank">
+            <span class="icon">
+              <i class="icofont-email"></i>
+            </span>
+          </a>
+          <a class="button is-medium is-discord" target="_blank">
+            <span class="icon">
+              <img src="assets/images/icons-discord.svg" />
+            </span>
+          </a>
+          <a class="button is-medium is-bitbucket" target="_blank">
+            <span class="icon">
+              <i class="icofont-web"></i>
+            </span>
+          </a>
+        </div>
+        <footer class="card-footer is-flex is-justify-content-center">
+          <a
+            class="button is-medium is-github"
+            target="_blank"
+            [href]="projectGithubURL"
+          >
+            <span class="icon is-text-orange">
+              <i class="icofont-github"></i>
+            </span>
+            <span>Github repository</span>
+          </a>
+        </footer>
+      </div>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-content about">
+        <div class="card-content socials">
+          <p class="subtitle">Give this project a shout on social media</p>
+          <button
+            mat-fab
+            shareButton="facebook"
+            #fbBtn="shareButton"
+            [url]="projectFlashcollUrl"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>

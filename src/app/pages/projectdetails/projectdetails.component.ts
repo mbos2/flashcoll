@@ -13,31 +13,40 @@ const gh = require('parse-github-url');
 
 export class ProjectdetailsComponent implements OnInit {
   public markdownContent: string = '';
-  private md: any;
-  private showdown: any;
   id: any;
+  userID: any;
+  userProfile: any;
+  projectGithubURL: any;
+  projectFlashcollUrl: any;
+  title: string = "Flashcoll";
+  description: string = "Platform to feature your next github project and find collaborators"
   constructor(private route: ActivatedRoute, private harperDbService: HarperDbService) {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.projectFlashcollUrl = `https://www.flashcoll.com/project/${this.id}`;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.postData().
       then(res => {
         this.markdownContent = marked(res);
       });
-  }
+
+    this.userID = await this.getUserIdFromProjectData(this.id);
+    await this.harperDbService.getUserSubProfileByUserId(this.userID)
+      .then(result => {
+        this.userProfile = result[0];
+      });
+   }
 
   async postData() {
   // Default options are marked with *
-    let projectGithubURL;
-    await this.harperDbService.getProjectDetails(this.id)
+    await this.harperDbService.getProjectDetails(this.id)    
       .then(result => {
         return result.json()
       }).then(data => {
-        projectGithubURL = data[0].githubRepoURL;
+        this.projectGithubURL = data[0].githubRepoURL;
       });
-    console.log(projectGithubURL)
-    const githubUrl = gh(projectGithubURL);
+    const githubUrl = gh(this.projectGithubURL);
     console.log(gh('https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md'))
     let url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/README.md`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
     const response = await fetch(url, {
@@ -54,6 +63,17 @@ export class ProjectdetailsComponent implements OnInit {
       // body data type must match "Content-Type" header
     });
     return response.text();
+  }
+
+  private async getUserIdFromProjectData(projectId: string) {
+    let userId;
+    await this.harperDbService.getProjectDetails(this.id)
+      .then(result => {
+        return result.json()
+      }).then(data => {
+        userId = data[0].userID;
+      });
+    return userId;
   } 
 
 }

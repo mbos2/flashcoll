@@ -76,6 +76,34 @@ export class HarperDbService {
       });
   }
 
+  async getUserSubProfileByGithubUsername(username: string) {
+    return await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where githubUsername = "${username}"`)
+      .then(data => {
+        return data.json();
+      });
+  }
+
+  async getUserProfileFullByGithubUsername(username: string) {
+    let userProjects: any;
+    let userProfile: any;
+    let userData = {
+      profile: {},
+      projects: {}
+    };
+    await this.getUserSubProfileByGithubUsername(username)
+      .then(data => {
+        userProfile = data;
+      });
+    await this.getAllUserProjectsByGithubUsername(username)
+      .then(data => {
+        userProjects = data.json();
+      })
+    return userData = {
+      profile: userProfile,
+      projects: userProjects
+    }
+  }
+
   async updateUserSubProfileData(userData: any) {
     const sqlQuery = `UPDATE flashcoll.user_profile 
                       SET email="${userData.email}",
@@ -91,9 +119,10 @@ export class HarperDbService {
   async createNewProject(projectData: any) {
     const arr = String(projectData.tags).split(',');
     const sqlQuery = `INSERT INTO flashcoll.project 
-                    (id, userID, githubRepoURL, projectTitle, projectShortDescription, tags)
+                    (id, userID, githubUsername, githubRepoURL, projectTitle, projectShortDescription, tags)
                     VALUE ("${uuidv4()}", 
-                    "${projectData.userID}", 
+                    "${projectData.userID}",
+                    "${projectData.githubUsername}", 
                     "${projectData.githubRepoURL}", 
                     "${projectData.projectTitle}", 
                     "${projectData.shortDescription}",
@@ -108,7 +137,12 @@ export class HarperDbService {
   }
 
   async getAllUserProjects(userId: string) {
-    const sqlQuery = `SELECT * FROM flashcoll.project where userProfileID = "${userId}"`;
+    const sqlQuery = `SELECT * FROM flashcoll.project where userID = "${userId}"`;
+    return await this.runSQLOnHarperDB(sqlQuery);
+  }
+
+  async getAllUserProjectsByGithubUsername(username: string) {
+    const sqlQuery = `SELECT * FROM flashcoll.project where githubUSername = "${username}"`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 
@@ -122,7 +156,6 @@ export class HarperDbService {
     //SELECT * FROM flashcoll.project WHERE tags like '%ovca%'
     return await this.runSQLOnHarperDB(sqlQuery);
   }
-
 
   //#endregion
 
