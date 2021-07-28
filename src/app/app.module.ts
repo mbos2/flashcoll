@@ -35,6 +35,7 @@ import { NewProjectComponent } from './pages/auth/new-project/new-project.compon
 import { LoaderComponent } from './loader/loader.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { FlashcollProfileComponent } from './pages/flashcoll-profile/flashcoll-profile.component';
+import { SEOService } from './services/seo.service';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { FlashcollProfileComponent } from './pages/flashcoll-profile/flashcoll-p
   providers: [
     HarperDbService,
     ClerkService,
+    SEOService,
     WindowRef,
     AuthGuardGuard,
     LoggedInRedirectGuard
