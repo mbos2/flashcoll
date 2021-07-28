@@ -1,0 +1,9 @@
+{
+  "name": "Flashcoll",
+  "short_name": "flashcoll",
+  "theme_color": "#404040",
+  "background_color": "#404040",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}
