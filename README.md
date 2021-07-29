@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" src="https://i.postimg.cc/bNfS4CY3/flascoll-with-text-dark.png" alt="flascoll-with-text-dark.png">
+  <img width="200" src="https://iili.io/AVJqhu.md.png" alt="flascoll-with-text-dark.png">
 </p>
 
 # The idea
@@ -45,3 +45,5 @@ If you like the project (or just the idea), Flashcoll is actively looking for co
 - Angular
 - Javascript / Typescript
 - Web design
+
+###### This project is under MIT License.
