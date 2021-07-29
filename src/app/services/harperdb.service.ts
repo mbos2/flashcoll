@@ -128,14 +128,14 @@ export class HarperDbService {
   async createNewProject(projectData: any) {
     const arr = String(projectData.tags).split(',');
     const sqlQuery = `INSERT INTO flashcoll.project 
-                    (id, userID, githubUsername, githubRepoURL, projectTitle, projectShortDescription, tags)
+                    (id, userID, githubUsername, githubRepoURL, projectTitle, projectShortDescription)
                     VALUE ("${uuidv4()}", 
                     "${projectData.userID}",
                     "${projectData.githubUsername}", 
                     "${projectData.githubRepoURL}", 
                     "${projectData.projectTitle}", 
-                    "${projectData.shortDescription}")
-                    "${projectData.tags}")`;
+                    "${projectData.shortDescription}")`;
+                    //  "${projectData.tags}")`;
 
     return await this.runSQLOnHarperDB(sqlQuery);
   }
