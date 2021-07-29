@@ -76,6 +76,15 @@ export class HarperDbService {
       });
   }
 
+  async getUsernameFromSubprofile(userId: string) {
+    return await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where id = "${userId}"`)
+      .then(data => {
+        return data.json();
+      }).then((result) => {
+        return result[0].githubUsername;
+      });
+  }
+
   async getUserSubProfileByGithubUsername(username: string) {
     return await this.runSQLOnHarperDB(`SELECT * FROM flashcoll.user_profile where githubUsername = "${username}"`)
       .then(data => {
@@ -142,7 +151,7 @@ export class HarperDbService {
   }
 
   async getAllUserProjectsByGithubUsername(username: string) {
-    const sqlQuery = `SELECT * FROM flashcoll.project where githubUSername = "${username}"`;
+    const sqlQuery = `SELECT * FROM flashcoll.project where githubUsername = "${username}"`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 
@@ -154,6 +163,11 @@ export class HarperDbService {
   async getProjectsByTag(tag: string) {
     const sqlQuery = `SELECT * FROM flashcoll.project WHERE "${tag}" = ANY(tags)`;
     //SELECT * FROM flashcoll.project WHERE tags like '%ovca%'
+    return await this.runSQLOnHarperDB(sqlQuery);
+  }
+
+  async deleteProject(projectId: string) {
+    const sqlQuery = `DELETE FROM flashcoll.project WHERE id = "${projectId}"`;
     return await this.runSQLOnHarperDB(sqlQuery);
   }
 

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ActivatedRoute,  Router } from '@angular/router';
+import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
 
 @Component({
@@ -6,25 +8,46 @@ import { HarperDbService } from 'app/services/harperdb.service';
   templateUrl: './flashcoll-profile.component.html',
   styleUrls: ['./flashcoll-profile.component.sass']
 })
+
 export class FlashcollProfileComponent implements OnInit {
+  @ViewChildren('anchor') private anchors: QueryList<ElementRef> | undefined;
+  public markdownContent: string = '';
+  username: any;
+  userID: any;
+  userProfile: any;
+  mailTo: any;
+  projects: any;
 
-  constructor(private harperDbService: HarperDbService) { }
-
-  ngOnInit(): void {
-  //   await this.harperDbService.getUserProfileFull(this.userID)
-  //     .then(result => {
-  //       return {
-  //         userProfile: result.profile,
-  //         userProjects: result.projects
-  //       }
-  //     })
-  //     .then(data => {
-  //       this.userProfile = data.userProfile
-  //       return data.userProjects
-  //     })
-  //     .then(projects => {
-  //       console.log(projects)
-  //     })
+  constructor(private route: ActivatedRoute, private harperDbService: HarperDbService) {
+    this.username = this.route.snapshot.paramMap.get('username');
+    console.log(this.username)
+    console.log(this.route.url)
   }
 
+  async ngOnInit(): Promise<void> {    
+    await this.harperDbService.getUserSubProfileByGithubUsername(this.username)
+      .then(result => {
+        this.userProfile = result[0];
+        this.mailTo = `mailto:${this.userProfile?.email}`;
+      }).then(() => this.hide());
+    
+    await this.harperDbService.getAllUserProjectsByGithubUsername(this.username)
+      .then(result => {
+        return result.json();
+      })
+      .then(data => {
+        this.projects = data;
+        console.log(data)
+      })
+  }
+  
+  hide() {
+    const anchors = this.anchors?.toArray();
+    console.log(anchors)
+    anchors?.forEach(anchor => {
+      if (!anchor.nativeElement.hasAttribute('href')) {
+        anchor.nativeElement.style.display = 'none';
+      }
+    })
+  }
 }

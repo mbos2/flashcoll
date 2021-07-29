@@ -1,1 +1,111 @@
-<p>flashcoll-profile works!</p>
+<section class="columns">
+  <section class="column">
+    <app-project-card
+      class="
+        column
+        is-12-desktop is-12-mobile
+        mt-2
+        is-flex is-justify-content-center
+      "
+      *ngFor="let project of projects"
+      [project]="project"
+    ></app-project-card>
+  </section>
+  <section class="column is-4">
+    <div class="card">
+      <div class="card-content about">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-96x96 is-64x64-mobile">
+              <img
+                class="is-rounded"
+                [src]="userProfile?.userImageURL"
+                width="64"
+                height="64"
+                alt="github-user-image-projectdetail"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">
+              {{ userProfile?.firstName }} {{ userProfile?.lastName }}
+            </p>
+            <p class="sub-title">@{{ userProfile?.githubUsername }}</p>
+          </div>
+        </div>
+
+        <div class="card-content socials">
+          <p class="subtitle">
+            If you would like to collaborate and talk about my projects, you can
+            contact me on links below
+          </p>
+          <a
+            #anchor
+            class="button is-medium is-facebook"
+            target="_blank"
+            [href]="userProfile?.facebookURL"
+          >
+            <span class="icon">
+              <i class="icofont-facebook"></i>
+            </span>
+          </a>
+          <a
+            #anchor
+            class="button is-medium is-twitter"
+            taget="_blank"
+            [href]="userProfile?.twitterURL"
+          >
+            <span class="icon">
+              <i class="icofont-twitter"></i>
+            </span>
+          </a>
+          <a #anchor class="button is-medium is-instagram">
+            <span class="icon">
+              <i class="icofont-instagram"></i>
+            </span>
+          </a>
+          <a
+            #anchor
+            class="button is-medium is-github"
+            target="_blank"
+            [href]="userProfile?.githubProfileURL"
+          >
+            <span class="icon">
+              <i class="icofont-github"></i>
+            </span>
+          </a>
+          <a
+            #anchor
+            class="button is-medium is-linkedin"
+            target="_blank"
+            [href]="userProfile?.linkedInURL"
+          >
+            <span class="icon">
+              <i class="icofont-linkedin"></i>
+            </span>
+          </a>
+          <a
+            #anchor
+            class="button is-medium is-email"
+            target="_blank"
+            [href]="mailTo"
+          >
+            <span class="icon">
+              <i class="icofont-email"></i>
+            </span>
+          </a>
+          <a
+            #anchor
+            class="button is-medium is-bitbucket"
+            target="_blank"
+            [href]="userProfile?.portfolioURL"
+          >
+            <span class="icon">
+              <i class="icofont-web"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

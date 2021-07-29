@@ -2,7 +2,8 @@ export interface User {
   id: string,
   firstName: string,
   lastName: string,
-  userImageURL: string  
+  userImageURL: string,
+  // githubUsername: string
 }
 
 export interface UserSocialNetworks extends User {

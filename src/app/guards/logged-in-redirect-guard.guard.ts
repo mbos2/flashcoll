@@ -15,7 +15,7 @@ export class LoggedInRedirectGuard implements CanActivate {
       return this.clerkService.user$.pipe(
       map(e => {
         if (e) {
-          return this.router.parseUrl('/projects');          
+          return this.router.parseUrl('/landing');          
         }
         return true;
       }),

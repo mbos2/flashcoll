@@ -14,11 +14,16 @@ import { ProjectsComponent } from '@pages/projects/projects.component';
 import { NetworksComponent } from '@pages/networks/networks.component';
 import { NewProjectComponent } from '@pages/auth/new-project/new-project.component';
 import { FlashcollProfileComponent } from '@pages/flashcoll-profile/flashcoll-profile.component';
+import { LandingComponent } from '@pages/landing/landing.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent
+    component: LandingComponent
+  },
+  {
+    path: 'landing',
+    component: LandingComponent
   },
   {
     path: 'sign-in',
@@ -41,7 +46,7 @@ const routes: Routes = [
     canActivate: [AuthGuardGuard],
   },
   {
-    path: 'profile/:id',
+    path: 'profile/:username',
     component: FlashcollProfileComponent,
   },
   {
@@ -60,10 +65,6 @@ const routes: Routes = [
   {
     path: 'project/:id',
     component: ProjectdetailsComponent,
-    data: {
-      title: 'Flashcoll project name',
-      description:'Flashcoll project description',
-    } 
   },
   {
     path: 'projects',

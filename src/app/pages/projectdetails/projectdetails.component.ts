@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
-import { SEOService } from 'app/services/seo.service';
 import marked from 'marked';
-import { filter, map, mergeMap } from 'rxjs/operators';
-const gh = require('parse-github-url');
 
+const gh = require('parse-github-url');
 
 @Component({
   selector: 'app-projectdetails',
@@ -14,20 +13,27 @@ const gh = require('parse-github-url');
 })
 
 export class ProjectdetailsComponent implements OnInit {
+  @ViewChildren('anchor') private anchors: QueryList<ElementRef> | undefined;
+  @ViewChild('deleteButton') private deleteButton: ElementRef<HTMLElement> | undefined;
+  @ViewChild('closeModal') private closeModal: ElementRef<HTMLElement> | undefined;
   public markdownContent: string = '';
   id: any;
   userID: any;
   userProfile: any;
+  userGithubUsername: any;
   projectGithubURL: any;
   projectFlashcollUrl: any;
-  title: string = "Flashcoll";
-  description: string = "Platform to feature your next github project and find collaborators"
-  constructor(private route: ActivatedRoute, private harperDbService: HarperDbService, private router: Router, private _seoService: SEOService) {
+  mailTo: any;
+  // title: string = "Flashcoll";
+  // description: string = "Platform to feature your next github project and find collaborators"
+  constructor(private route: ActivatedRoute, private harperDbService: HarperDbService, private clerk: ClerkService, private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.projectFlashcollUrl = `https://www.flashcoll.com/project/${this.id}`;
+    this.projectFlashcollUrl = `https://www.flashcoll.com/project/${this.id}`;    
   }
 
   async ngOnInit(): Promise<void> {
+    const shareDiv = document.querySelector('.shareon');
+    shareDiv?.setAttribute('data-url', this.projectFlashcollUrl);
     this.postData().
       then(res => {
         this.markdownContent = marked(res);
@@ -37,8 +43,42 @@ export class ProjectdetailsComponent implements OnInit {
     await this.harperDbService.getUserSubProfileByUserId(this.userID)
       .then(result => {
         this.userProfile = result[0];
-      });
-   }
+        this.mailTo = `mailto:${this.userProfile.email}`;
+      }).then(() => {
+        this.hide();
+      });    
+  }
+  
+  ngAfterViewInit(): void {
+     // @ts-ignore
+    this.deleteButton.nativeElement.classList.add('hide');
+     // @ts-ignore
+    const modal = document.querySelector('#myModal');
+    this.deleteButton?.nativeElement.addEventListener('click', function () {
+      modal?.classList.add('is-active');
+    });
+    this.closeModal?.nativeElement.addEventListener('click', function () {
+      modal?.classList.remove('is-active');
+    });
+
+    this.clerk.user$.subscribe(user => {
+      if (!user) {
+        return;
+      }
+      this.harperDbService.getUserSubProfileByUserId(user!.id)
+        .then(data => {
+          return data[0]
+        }).then(result => {
+          if (this.userGithubUsername === result.githubUsername) {
+            // @ts-ignore
+            this.deleteButton.nativeElement.classList.remove('hide');
+          } else {
+            // @ts-ignore
+            this.deleteButton.nativeElement.classList.add('hide')
+          }
+        })
+    });
+  }
 
   async postData() {
   // Default options are marked with *
@@ -46,23 +86,9 @@ export class ProjectdetailsComponent implements OnInit {
       .then(result => {
         return result.json()
       }).then(data => {
+        console.log(data)
         this.projectGithubURL = data[0].githubRepoURL;
-        this.router.events.pipe(
-          filter((event) => event instanceof NavigationEnd),
-          map(() => this.route),
-          map((route) => {
-            while (route.firstChild) route = route.firstChild;
-            return route;
-          }),
-          filter((route) => route.outlet === 'primary'),
-          mergeMap((route) => route.data)
-        )
-          .subscribe((event) => {
-            event['title'] = data[0].projectTitle;
-            event['description'] = data[0].projectShortDescription;
-            this._seoService.updateTitle(event['title']);
-            this._seoService.updateDescription(event['title'] + event['description'])
-        }); 
+        this.userGithubUsername = data[0].githubUsername
       });
     const githubUrl = gh(this.projectGithubURL);
     let url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/README.md`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
@@ -91,6 +117,20 @@ export class ProjectdetailsComponent implements OnInit {
         userId = data[0].userID;
       });
     return userId;
-  } 
+  }
 
+  hide() {
+    const anchors = this.anchors?.toArray();
+    console.log(anchors)
+    anchors?.forEach(anchor => {
+      if (!anchor.nativeElement.hasAttribute('href')) {
+        anchor.nativeElement.style.display = 'none';
+      }
+    })
+  }
+
+  deleteProject() {
+    this.harperDbService.deleteProject(this.id)
+    this.router.navigate([`/profile/${this.userGithubUsername}`]); 
+  }
 }

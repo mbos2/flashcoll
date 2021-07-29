@@ -14,7 +14,7 @@
     >
       <div>
         <figure class="image is-96x96 is-64x64-mobile">
-          <a [routerLink]="['/profile', project.userID]">
+          <a [routerLink]="['/profile', project.githubUsername]">
             <img
               class="is-rounded"
               [src]="user?.userImageURL"
@@ -34,19 +34,19 @@
           is-justify-content-center
           is-align-items-center
           is-align-content-center
-          is-size-4
-          is-size-5-touch
+          is-size-5
+          is-size-6-touch
         "
       >
         {{ user?.firstName }} {{ user?.lastName }}
-        <span class="tag is-primary is-size-5 is-size-7-touch">
+        <span class="tag is-primary is-size-7 is-size-8-touch">
           Looking for collaborators
         </span>
         <a
           [routerLink]="['/project', project.id]"
-          class="card-footer-item mt-2 has-text-centered read-more"
-          >READ MORE</a
-        >
+          class="card-footer-item mt-2 has-text-centered read-more is-size-5"
+          >READ MORE
+        </a>
       </div>
     </header>
   </div>

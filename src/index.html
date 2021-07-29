@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Flashcoll</title>
     <base href="/" />
     <meta charset="utf-8" />
+    <title>Flashcoll</title>
     <meta http-equiv="Cache-control" content="public" max-age="31536000" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
@@ -86,14 +86,21 @@
       sizes="16x16"
       href="assets/favicon/favicon-16x16.png"
     />
-    <link rel="manifest" href="/sitemap.xml" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
     <base href="/" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/shareon@1/dist/shareon.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/shareon@1/dist/shareon.min.js"
+      type="text/javascript"
+    ></script>
   </head>
   <style>
     html,
@@ -104,4 +111,8 @@
   <body class="mat-typography">
     <app-root></app-root>
   </body>
+  <script type="text/javascript">
+    // do something important
+    shareon();
+  </script>
 </html>

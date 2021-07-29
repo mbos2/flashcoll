@@ -12,9 +12,10 @@ import { HarperDbService } from 'app/services/harperdb.service';
 export class NavigationComponent implements AfterViewInit, OnInit {
   @ViewChild('userAction', { static: false }) private userAction: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('authButtons', { static: false }) private authButtons: ElementRef<HTMLDivElement> | undefined;
-  @ViewChild('loggedInActions', {static: false}) private loggedInActions: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild('clerkLoggedInActions', { static: false }) private loggedInActions: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild('userLoggedInActions', {static: false}) private userLoggedInActions: ElementRef<HTMLDivElement> | undefined;
   userName: string | null | undefined;
-
+  githubUsername: string | null | undefined;
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService) { }
 
   ngOnInit(): void {
@@ -44,6 +45,7 @@ export class NavigationComponent implements AfterViewInit, OnInit {
     this.clerk.user$.subscribe(user => {
       const authButtons = this.authButtons?.nativeElement;
       const loggedInActions = this.loggedInActions?.nativeElement;
+      const userLoggedInActions = this.userLoggedInActions?.nativeElement;
       const el = this.userAction?.nativeElement;
       if (!el) {
         console.log('Can not fetch native element for user action!');
@@ -54,11 +56,13 @@ export class NavigationComponent implements AfterViewInit, OnInit {
         this.clerk.unMountUserButton(el)
         authButtons!.style.display = 'flex';
         loggedInActions!.style.display = 'none';
+        userLoggedInActions!.style.display = 'none';
         return;
       }
       this.userName = user.firstName;
       authButtons!.style.display = 'none';
-      loggedInActions!.style.display = 'flex';      
+      loggedInActions!.style.display = 'flex';
+      userLoggedInActions!.style.display = 'flex';
       this.clerk.mountUserButton(el);
       setTimeout(() => {
         // Appending new button to user action because component loads faster than user action button can fetch all elements on component init
@@ -66,7 +70,12 @@ export class NavigationComponent implements AfterViewInit, OnInit {
         this.createSocialsSettingsButton();
       }, 1);
       this.harperDbService.generateUserSubprofileIfNotExist(user!.id);
+      this.harperDbService.getUsernameFromSubprofile(user.id)
+        .then((result) => {
+          this.githubUsername = result
+        });
     });
+    console.log(this.githubUsername)
   }
 
   createSocialsSettingsButton() {
