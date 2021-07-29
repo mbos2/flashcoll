@@ -45,3 +45,5 @@ If you like the project (or just the idea), Flashcoll is actively looking for co
 - Angular
 - Javascript / Typescript
 - Web design
+
+###### This project is under MIT License.
