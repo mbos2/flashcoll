@@ -59,7 +59,11 @@
               <i class="icofont-twitter"></i>
             </span>
           </a>
-          <a #anchor class="button is-medium is-instagram">
+          <a
+            #anchor
+            class="button is-medium is-instagram"
+            [href]="userProfile?.instagramURL"
+          >
             <span class="icon">
               <i class="icofont-instagram"></i>
             </span>
