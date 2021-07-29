@@ -45,7 +45,7 @@ export class FlashcollProfileComponent implements OnInit {
     const anchors = this.anchors?.toArray();
     console.log(anchors)
     anchors?.forEach(anchor => {
-      if (!anchor.nativeElement.hasAttribute('href') || anchor.nativeElement.getAttribute('href').length < 1) {
+      if (!anchor.nativeElement.hasAttribute('href')) {
         anchor.nativeElement.style.display = 'none';
       }
     })
