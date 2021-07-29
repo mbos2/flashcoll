@@ -37,7 +37,6 @@ export class FlashcollProfileComponent implements OnInit {
       })
       .then(data => {
         this.projects = data;
-        console.log(data)
       })
     this.hide();
   }

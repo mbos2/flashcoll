@@ -13,7 +13,6 @@ const gh = require('parse-github-url');
 })
 
 export class ProjectdetailsComponent implements OnInit {
-  @ViewChildren('anchor') private anchors: QueryList<ElementRef> | undefined;
   @ViewChild('deleteButton') private deleteButton: ElementRef<HTMLElement> | undefined;
   @ViewChild('closeModal') private closeModal: ElementRef<HTMLElement> | undefined;
   public markdownContent: string = '';
@@ -28,7 +27,7 @@ export class ProjectdetailsComponent implements OnInit {
   // description: string = "Platform to feature your next github project and find collaborators"
   constructor(private route: ActivatedRoute, private harperDbService: HarperDbService, private clerk: ClerkService, private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.projectFlashcollUrl = `https://www.flashcoll.com/project/${this.id}`;    
+    this.projectFlashcollUrl = `https://www.flashcoll.com/project/${this.id}`;
   }
 
   async ngOnInit(): Promise<void> {
@@ -40,13 +39,11 @@ export class ProjectdetailsComponent implements OnInit {
       });
 
     this.userID = await this.getUserIdFromProjectData(this.id);
-    await this.harperDbService.getUserSubProfileByUserId(this.userID)
+    await this.harperDbService.getUserSubProfileByGithubUsername(this.userGithubUsername)
       .then(result => {
         this.userProfile = result[0];
         this.mailTo = `mailto:${this.userProfile.email}`;
-      }).then(() => {
-        this.hide();
-      });    
+      })
   }
   
   ngAfterViewInit(): void {
@@ -117,16 +114,6 @@ export class ProjectdetailsComponent implements OnInit {
         userId = data[0].userID;
       });
     return userId;
-  }
-
-  hide() {
-    const anchors = this.anchors?.toArray();
-    console.log(anchors)
-    anchors?.forEach(anchor => {
-      if (!anchor.nativeElement.hasAttribute('href')) {
-        anchor.nativeElement.style.display = 'none';
-      }
-    })
   }
 
   deleteProject() {

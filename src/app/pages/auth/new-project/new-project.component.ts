@@ -44,10 +44,11 @@ export class NewProjectComponent implements AfterViewInit {
         userID: user?.id       
       })
       const repos = this.githubService.getUserRepositories(user?.data.external_accounts[0].provider_user_id)
-      .then(value => {
-        return value.json()
+        .then(value => {
+          return value.json()
       })
-        .then(repos => {          
+        .then(repos => {
+          console.log(repos)
           repos.forEach((repo: any) => {
             this.githubUsername = repo.owner.login;
             this.userRepositories.push({
@@ -62,17 +63,20 @@ export class NewProjectComponent implements AfterViewInit {
 
     const form = this.form?.nativeElement;
     form?.addEventListener('keypress', function (e) {
-      e.preventDefault();
+      console.log(e.key)
+      if (e.key == "Enter")
+        {
+        e.preventDefault();        
+        }
     })
   }
 
-  async createProject() {
-    
+  async createProject() {    
     const tags = this.tags?.nativeElement.value;
     const arrayOfTags = tags?.split(',');
     this.projectData.patchValue({
       tags: arrayOfTags
-    })
+  })
 
     await this.harperDbService.createNewProject(this.projectData.value)
       .then(data => {

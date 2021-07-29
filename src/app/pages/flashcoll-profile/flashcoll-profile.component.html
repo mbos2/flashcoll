@@ -30,13 +30,20 @@
             <p class="title is-4">
               {{ userProfile?.firstName }} {{ userProfile?.lastName }}
             </p>
-            <p class="sub-title">@{{ userProfile?.githubUsername }}</p>
+            <div>
+              <a
+                class="button"
+                [routerLink]="['/profile', userProfile?.githubUsername]"
+              >
+                My profile
+              </a>
+            </div>
           </div>
         </div>
 
         <div class="card-content socials">
           <p class="subtitle">
-            If you would like to collaborate and talk about my projects, you can
+            If you would like to collaborate and talk about the project, you can
             contact me on links below
           </p>
           <a
@@ -59,11 +66,7 @@
               <i class="icofont-twitter"></i>
             </span>
           </a>
-          <a
-            #anchor
-            class="button is-medium is-instagram"
-            [href]="userProfile?.instagramURL"
-          >
+          <a #anchor class="button is-medium is-instagram">
             <span class="icon">
               <i class="icofont-instagram"></i>
             </span>
@@ -109,6 +112,18 @@
             </span>
           </a>
         </div>
+        <footer class="card-footer is-flex is-justify-content-center">
+          <a
+            class="button is-medium is-github"
+            target="_blank"
+            [href]="userProfile?.githubProfileURL"
+          >
+            <span class="icon is-text-orange">
+              <i class="icofont-github"></i>
+            </span>
+            <span>Github repository</span>
+          </a>
+        </footer>
       </div>
     </div>
   </section>
