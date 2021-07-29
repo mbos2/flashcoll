@@ -32,7 +32,7 @@ export class NewProjectComponent implements AfterViewInit {
     projectTitle: new FormControl(''),
     shortDescription: new FormControl(''),
     githubRepoURL: new FormControl(''),
-    // tags: new FormControl(''),
+    tags: new FormControl(''),
   });
 
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService, private githubService: GithubService) {
