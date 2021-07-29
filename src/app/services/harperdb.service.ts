@@ -134,8 +134,8 @@ export class HarperDbService {
                     "${projectData.githubUsername}", 
                     "${projectData.githubRepoURL}", 
                     "${projectData.projectTitle}", 
-                    "${projectData.shortDescription}",
-                    "${projectData.tags}")`;
+                    "${projectData.shortDescription}")`;
+                    // "${projectData.tags}")`;
 
     return await this.runSQLOnHarperDB(sqlQuery);
   }

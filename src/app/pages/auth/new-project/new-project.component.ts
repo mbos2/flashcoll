@@ -32,7 +32,7 @@ export class NewProjectComponent implements AfterViewInit {
     projectTitle: new FormControl(''),
     shortDescription: new FormControl(''),
     githubRepoURL: new FormControl(''),
-    tags: new FormControl(''),
+    // tags: new FormControl(''),
   });
 
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService, private githubService: GithubService) {
@@ -61,22 +61,22 @@ export class NewProjectComponent implements AfterViewInit {
         })
     });
 
-    const form = this.form?.nativeElement;
-    form?.addEventListener('keypress', function (e) {
-      console.log(e.key)
-      if (e.key == "Enter")
-        {
-        e.preventDefault();        
-        }
-    })
+    // const form = this.form?.nativeElement;
+    // form?.addEventListener('keypress', function (e) {
+    //   console.log(e.key)
+    //   if (e.key == "Enter")
+    //     {
+    //     e.preventDefault();        
+    //     }
+    // })
   }
 
   async createProject() {    
-    const tags = this.tags?.nativeElement.value;
-    const arrayOfTags = tags?.split(',');
-    this.projectData.patchValue({
-      tags: arrayOfTags
-  })
+    // const tags = this.tags?.nativeElement.value;
+    // const arrayOfTags = tags?.split(',');
+    // this.projectData.patchValue({
+    //   tags: arrayOfTags
+    // })
 
     await this.harperDbService.createNewProject(this.projectData.value)
       .then(data => {
