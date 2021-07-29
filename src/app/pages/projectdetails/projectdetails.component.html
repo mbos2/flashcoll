@@ -59,26 +59,33 @@
       <div class="card-content about">
         <div class="card-content socials">
           <p class="subtitle">Give this project a shout on social media</p>
-          <div class="shareon">
-            <a
-              class="facebook"
-              data-title="This project is currently looking for collaborators. Check it out!"
-            ></a>
-            <a
-              class="linkedin"
-              data-title="This project is currently looking for collaborators. Check it out!"
-            ></a>
-            <a
-              class="twitter"
-              data-title="This project is currently looking for collaborators. Check it out!"
-              data-text="Hello"
-            ></a>
-            <a
-              class="whatsapp"
-              data-title="This project is currently looking for collaborators. Check it out!"
-            ></a>
-          </div>
-          <!--Add sharebuttons here-->
+
+          <a
+            target="_blank"
+            class="facebook button"
+            [href]="socialShareLinks.facebook"
+          >
+            <i class="icofont-facebook"></i>
+          </a>
+          <a
+            target="_blank"
+            class="linkedin button"
+            [href]="socialShareLinks.linkedin"
+            ><i class="icofont-linkedin"></i
+          ></a>
+          <a
+            target="_blank"
+            class="twitter button"
+            [href]="socialShareLinks.twitter"
+            ><i class="icofont-twitter"></i
+          ></a>
+          <a
+            target="_blank"
+            class="whatsapp button"
+            [href]="socialShareLinks.whatsapp"
+            data-action="share/whatsapp/share"
+            ><i class="icofont-whatsapp"></i
+          ></a>
         </div>
       </div>
     </div>

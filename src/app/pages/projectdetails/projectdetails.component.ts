@@ -5,6 +5,7 @@ import { HarperDbService } from 'app/services/harperdb.service';
 import marked from 'marked';
 
 const gh = require('parse-github-url');
+const sharon = require('sharon');
 
 @Component({
   selector: 'app-projectdetails',
@@ -23,11 +24,24 @@ export class ProjectdetailsComponent implements OnInit, AfterViewInit {
   projectGithubURL: any;
   projectFlashcollUrl: any;
   mailTo: any;
+  $scope: any;
+  socialShareLinks: any = {
+    facebook: 'string',
+    twitter: 'string',
+    whatsapp: 'string',
+    linkedin: 'string'
+  }
   // title: string = "Flashcoll";
   // description: string = "Platform to feature your next github project and find collaborators"
   constructor(private route: ActivatedRoute, private harperDbService: HarperDbService, private clerk: ClerkService, private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.projectFlashcollUrl = `https://www.flashcoll.com/project/${this.id}`;
+    this.socialShareLinks = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${this.projectFlashcollUrl}`,
+      twitter: `http://twitter.com/share?url=${this.projectFlashcollUrl}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${this.projectFlashcollUrl}`,
+      whatsapp: `https://web.whatsapp.com/send?text=${this.projectFlashcollUrl}`
+    }
   }
 
   async ngOnInit(): Promise<void> {
@@ -43,9 +57,18 @@ export class ProjectdetailsComponent implements OnInit, AfterViewInit {
       .then(result => {
         this.userProfile = result[0];
         this.mailTo = `mailto:${this.userProfile.email}`;
-    })
+      })
   }
   
+  fb(event: any) {
+    this.$scope.href = sharon.facebook.href();
+    let e = event;
+    this.$scope.share = function (event: any) {
+      event.preventDefault();
+      sharon.facebook();
+    };
+  }
+
   ngAfterViewInit(): void {
     const shareDiv = document.querySelector('.shareon');
     shareDiv?.setAttribute('data-url', this.projectFlashcollUrl);
