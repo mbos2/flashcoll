@@ -29,7 +29,7 @@ export class FlashcollProfileComponent implements OnInit {
       .then(result => {
         this.userProfile = result[0];
         this.mailTo = `mailto:${this.userProfile?.email}`;
-      }).then(() => this.hide());
+      });
     
     await this.harperDbService.getAllUserProjectsByGithubUsername(this.username)
       .then(result => {
@@ -39,11 +39,11 @@ export class FlashcollProfileComponent implements OnInit {
         this.projects = data;
         console.log(data)
       })
+    this.hide();
   }
   
   hide() {
     const anchors = this.anchors?.toArray();
-    console.log(anchors)
     anchors?.forEach(anchor => {
       if (anchor.nativeElement.getAttribute('href') == "" || anchor.nativeElement.getAttribute('href') == null) {
         anchor.nativeElement.style.display = 'none';
