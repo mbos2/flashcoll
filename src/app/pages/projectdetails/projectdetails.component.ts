@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
@@ -12,7 +12,7 @@ const gh = require('parse-github-url');
   styleUrls: ['./projectdetails.component.sass']
 })
 
-export class ProjectdetailsComponent implements OnInit {
+export class ProjectdetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('deleteButton') private deleteButton: ElementRef<HTMLElement> | undefined;
   @ViewChild('closeModal') private closeModal: ElementRef<HTMLElement> | undefined;
   public markdownContent: string = '';
@@ -43,10 +43,12 @@ export class ProjectdetailsComponent implements OnInit {
       .then(result => {
         this.userProfile = result[0];
         this.mailTo = `mailto:${this.userProfile.email}`;
-      })
+    })
   }
   
   ngAfterViewInit(): void {
+    const shareDiv = document.querySelector('.shareon');
+    shareDiv?.setAttribute('data-url', this.projectFlashcollUrl);
      // @ts-ignore
     this.deleteButton.nativeElement.classList.add('hide');
      // @ts-ignore
