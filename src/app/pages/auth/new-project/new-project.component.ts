@@ -20,6 +20,7 @@ export interface GithubRepoData {
 })
 export class NewProjectComponent implements AfterViewInit {
   @ViewChild('tags', { static: false }) private tags: ElementRef<HTMLInputElement> | undefined;
+  @ViewChild('form', { static: false }) private form: ElementRef<HTMLElement> | undefined | null;
   isDisabled = true;
   successIndicator: number = 0;
   notificationMessage: any;
@@ -58,9 +59,15 @@ export class NewProjectComponent implements AfterViewInit {
           });
         })
     });
+
+    const form = this.form?.nativeElement;
+    form?.addEventListener('keypress', function (e) {
+      e.preventDefault();
+    })
   }
 
   async createProject() {
+    
     const tags = this.tags?.nativeElement.value;
     const arrayOfTags = tags?.split(',');
     this.projectData.patchValue({
