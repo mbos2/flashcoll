@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
-import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
+// import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
 import { GithubService } from 'app/services/github.service';
 import { NotificationsEnum } from 'app/enums/notificationMessagesEnum';
 
@@ -19,7 +19,7 @@ export interface GithubRepoData {
   styleUrls: ['./new-project.component.sass']
 })
 export class NewProjectComponent implements AfterViewInit {
-  @ViewChild('tags', { static: false }) private tags: ElementRef<HTMLInputElement> | undefined;
+  // @ViewChild('tags', { static: false }) private tags: ElementRef<HTMLInputElement> | undefined;
   @ViewChild('form', { static: false }) private form: ElementRef<HTMLElement> | undefined | null;
   isDisabled = true;
   successIndicator: number = 0;
@@ -36,7 +36,7 @@ export class NewProjectComponent implements AfterViewInit {
   });
 
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService, private githubService: GithubService) {
-    BulmaTagsInput.attach();
+    // BulmaTagsInput.attach();
   }
   ngAfterViewInit(): void {
     this.clerk.user$.subscribe(user => {
