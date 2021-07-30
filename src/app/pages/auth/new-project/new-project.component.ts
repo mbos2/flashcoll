@@ -5,6 +5,7 @@ import { HarperDbService } from 'app/services/harperdb.service';
 // import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
 import { GithubService } from 'app/services/github.service';
 import { NotificationsEnum } from 'app/enums/notificationMessagesEnum';
+import { Router } from '@angular/router';
 
 export interface GithubRepoData {
   name: string,
@@ -35,7 +36,7 @@ export class NewProjectComponent implements AfterViewInit {
     // tags: new FormControl(''),
   });
 
-  constructor(private clerk: ClerkService, private harperDbService: HarperDbService, private githubService: GithubService) {
+  constructor(private clerk: ClerkService, private harperDbService: HarperDbService, private githubService: GithubService, private router: Router) {
     // BulmaTagsInput.attach();
   }
   ngAfterViewInit(): void {
@@ -48,7 +49,6 @@ export class NewProjectComponent implements AfterViewInit {
           return value.json()
       })
         .then(repos => {
-          console.log(repos)
           repos.forEach((repo: any) => {
             this.githubUsername = repo.owner.login;
             this.userRepositories.push({
@@ -85,6 +85,7 @@ export class NewProjectComponent implements AfterViewInit {
           this.notificationMessage = NotificationsEnum.ProjectCreated;
           setTimeout(() => {
             this.successIndicator = 0
+            return this.router.parseUrl('/landing'); 
           },3000)
         } else {
           this.successIndicator = 2;
