@@ -126,7 +126,7 @@ export class HarperDbService {
   }
 
   async createNewProject(projectData: any) {
-    const arr = String(projectData.tags).split(',');
+    // const arr = String(projectData.tags).split(',');
     const sqlQuery = `INSERT INTO flashcoll.project 
                     (id, userID, githubUsername, githubRepoURL, projectTitle, projectShortDescription)
                     VALUE ("${uuidv4()}", 

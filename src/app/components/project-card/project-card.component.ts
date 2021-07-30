@@ -36,9 +36,9 @@ export class ProjectCardComponent implements OnInit {
           // githubUsername: ress.githubUsername
         }
       })
-    this.project.tags.split(',').forEach((tag: any) => {
-      this.tags.push(` #${tag}`);
-    });
+    // this.project.tags.split(',').forEach((tag: any) => {
+    //   this.tags.push(` #${tag}`);
+    // });
     this.project.tags = this.tags.join(' ');
   }
 }

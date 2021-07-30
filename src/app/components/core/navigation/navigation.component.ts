@@ -75,7 +75,6 @@ export class NavigationComponent implements AfterViewInit, OnInit {
           this.githubUsername = result
         });
     });
-    console.log(this.githubUsername)
   }
 
   createSocialsSettingsButton() {

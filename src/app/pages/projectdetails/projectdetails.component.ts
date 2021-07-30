@@ -108,7 +108,6 @@ export class ProjectdetailsComponent implements OnInit, AfterViewInit {
       .then(result => {
         return result.json()
       }).then(data => {
-        console.log(data)
         this.projectGithubURL = data[0].githubRepoURL;
         this.userGithubUsername = data[0].githubUsername
       });

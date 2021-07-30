@@ -20,8 +20,6 @@ export class FlashcollProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private harperDbService: HarperDbService) {
     this.username = this.route.snapshot.paramMap.get('username');
-    console.log(this.username)
-    console.log(this.route.url)
   }
 
   async ngOnInit(): Promise<void> {    
