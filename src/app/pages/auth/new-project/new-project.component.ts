@@ -90,7 +90,7 @@ export class NewProjectComponent implements AfterViewInit {
           setTimeout(() => {
             this.successIndicator = 0
             this.router.navigate([`/project/${this.projectData.value.id}`]); 
-          },3000)
+          },2000)
         } else {
           this.successIndicator = 2;
           this.notificationMessage = NotificationsEnum.Error;
