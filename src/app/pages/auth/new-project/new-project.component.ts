@@ -49,6 +49,7 @@ export class NewProjectComponent implements AfterViewInit {
           return value.json()
       })
         .then(repos => {
+          console.log(repos);
           repos.forEach((repo: any) => {
             this.githubUsername = repo.owner.login;
             this.userRepositories.push({
