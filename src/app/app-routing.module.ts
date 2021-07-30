@@ -14,17 +14,17 @@ import { ProjectsComponent } from '@pages/projects/projects.component';
 import { NetworksComponent } from '@pages/networks/networks.component';
 import { NewProjectComponent } from '@pages/auth/new-project/new-project.component';
 import { FlashcollProfileComponent } from '@pages/flashcoll-profile/flashcoll-profile.component';
-// import { LandingComponent } from '@pages/landing/landing.component';
+import { LandingComponent } from '@pages/landing/landing.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProjectsComponent
+    component: LandingComponent
   },
-  // {
-  //   path: 'landing',
-  //   component: LandingComponent
-  // },
+  {
+    path: 'landing',
+    component: LandingComponent
+  },
   {
     path: 'sign-in',
     component: SignInComponent,
