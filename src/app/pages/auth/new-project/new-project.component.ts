@@ -81,7 +81,7 @@ export class NewProjectComponent implements AfterViewInit {
 
     await this.harperDbService.createNewProject(this.projectData.value)
       .then(data => {
-        console.log(data);
+        console.log(data.body);
         if (data.ok) {          
           this.successIndicator = 1;
           this.notificationMessage = NotificationsEnum.ProjectCreated;
