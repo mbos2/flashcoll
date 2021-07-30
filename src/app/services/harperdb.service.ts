@@ -129,7 +129,7 @@ export class HarperDbService {
     // const arr = String(projectData.tags).split(',');
     const sqlQuery = `INSERT INTO flashcoll.project 
                     (id, userID, githubUsername, githubRepoURL, projectTitle, projectShortDescription)
-                    VALUE ("${uuidv4()}", 
+                    VALUE ("${projectData.id}", 
                     "${projectData.userID}",
                     "${projectData.githubUsername}", 
                     "${projectData.githubRepoURL}", 

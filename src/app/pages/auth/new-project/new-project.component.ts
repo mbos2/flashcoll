@@ -6,6 +6,7 @@ import { HarperDbService } from 'app/services/harperdb.service';
 import { GithubService } from 'app/services/github.service';
 import { NotificationsEnum } from 'app/enums/notificationMessagesEnum';
 import { Router } from '@angular/router';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface GithubRepoData {
   name: string,
@@ -28,6 +29,7 @@ export class NewProjectComponent implements AfterViewInit {
   userRepositories: Array<GithubRepoData> = [];
   githubUsername: any;
   projectData = new FormGroup({
+    id: new FormControl(''),
     userID: new FormControl(''),
     githubUsername: new FormControl(''),
     projectTitle: new FormControl(''),
@@ -87,7 +89,7 @@ export class NewProjectComponent implements AfterViewInit {
           this.notificationMessage = NotificationsEnum.ProjectCreated;
           setTimeout(() => {
             this.successIndicator = 0
-            return this.router.parseUrl('/landing'); 
+            this.router.navigate([`/project/${this.projectData.value.id}`]); 
           },3000)
         } else {
           this.successIndicator = 2;
@@ -106,6 +108,7 @@ export class NewProjectComponent implements AfterViewInit {
         repository = repo;
     });
     this.projectData.patchValue({
+      id: uuidv4(),
       projectTitle: repository.name,
       shortDescription: repository.description,
       githubRepoURL: repository.html_url,
