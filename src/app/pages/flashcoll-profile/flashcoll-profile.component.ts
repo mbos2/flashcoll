@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ActivatedRoute,  Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HarperDbService } from 'app/services/harperdb.service';
 
 @Component({
@@ -35,10 +35,10 @@ export class FlashcollProfileComponent implements OnInit {
       .then(data => {
         this.projects = data;
       })
-    this.hide();
+    this.hideEmptyNetworkAnchors();
   }
   
-  hide() {
+  hideEmptyNetworkAnchors() {
     const anchors = this.anchors?.toArray();
     anchors?.forEach(anchor => {
       if (anchor.nativeElement.getAttribute('href') == "" || anchor.nativeElement.getAttribute('href') == null) {
