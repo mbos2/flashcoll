@@ -20,6 +20,8 @@ The process of sharing your project with Flashcoll is next:
 - Add your project to Flashcoll by clicking on `New project` button
 - Start sharing with social network buttons
 
+You can also check [FLashcoll intro video](https://www.youtube.com/embed/NXINisOIqqw?start=0)
+
 WIth social network buttons you can share your project or even your whole profile
 
 # Why flashcoll? 
