@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ClerkService } from 'app/services/clerk.service';
-import { Main } from 'tsparticles';
 
 interface User {
   id: string | null;
@@ -20,7 +19,7 @@ export class ProfileComponent implements AfterViewInit {
     name: '',
     email: '',
   };
-  isSubprofileActive: boolean = false;
+  isSubprofileActive = false;
 
   constructor(private clerk: ClerkService) {
     

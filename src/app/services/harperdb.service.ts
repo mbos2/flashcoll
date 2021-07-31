@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
-import { v4 as uuidv4 } from 'uuid';
+
 @Injectable()
 export class HarperDbService {
   private REST_API = 'https://api.flashcoll.com';
@@ -31,7 +31,7 @@ export class HarperDbService {
   }
 
   private async runSQLOnHarperDB(sqlQuery: string) {
-    let options = this.harperRequestOptions(sqlQuery);
+    const options = this.harperRequestOptions(sqlQuery);
     return await fetch(this.harpedAPI, options);
   }
 
@@ -41,14 +41,14 @@ export class HarperDbService {
 
   async generateUserSubprofileIfNotExist(userId: string) {
     let userdata: any;
-    await fetch(`${this.REST_API}/clerk/user/${userId}`)
+    return await fetch(`${this.REST_API}/clerk/user/${userId}`)
       .then(data => {
         return userdata = data.json();      
       }).then(userData => {
 
         fetch(`${this.REST_API}/github/user/${userData.external_accounts[0].provider_user_id}`)
           .then(response => {
-          let json = response.json();
+          const json = response.json();
           json.then(result => {
             userData.githubURL = `https://github.com/${result.login}`;
             userData.githubUsername = result.login;

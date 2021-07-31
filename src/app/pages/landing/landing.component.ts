@@ -8,8 +8,6 @@ import { tsParticles } from "tsparticles"
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit(): void {  
     tsParticles.load("tsparticles", {
   "background": {

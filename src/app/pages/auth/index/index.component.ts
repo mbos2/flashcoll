@@ -9,22 +9,18 @@ const gh = require('parse-github-url');
 })
 export class IndexComponent implements OnInit {
   public markdownContent: string = '';
-  private md: any;
-  private showdown: any;
-  constructor() {
-  }
 
   ngOnInit(): void {
-    this.postData('mbos2', 'demo-markdown', 'demo2').
+    this.postData().
       then(res => {
         this.markdownContent = marked(res);
       });
   }
 
-  async postData(githubUsername: string, githubRepository: string, mdFileName: string) {
+  async postData() {
   // Default options are marked with *
     const githubUrl = gh('https://github.com/mbos2/demo-markdown/blob/main/demo2.md');
-    let url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/${githubUrl.filepath}`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
+    const url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/${githubUrl.filepath}`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
     const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin

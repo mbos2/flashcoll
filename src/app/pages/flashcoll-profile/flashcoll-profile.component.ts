@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute,  Router } from '@angular/router';
-import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { HarperDbService } from 'app/services/harperdb.service';
 
 export class FlashcollProfileComponent implements OnInit {
   @ViewChildren('anchor') private anchors: QueryList<ElementRef> | undefined;
-  public markdownContent: string = '';
+  public markdownContent = '';
   username: any;
   userID: any;
   userProfile: any;
@@ -43,8 +42,9 @@ export class FlashcollProfileComponent implements OnInit {
     const anchors = this.anchors?.toArray();
     anchors?.forEach(anchor => {
       if (anchor.nativeElement.getAttribute('href') == "" || anchor.nativeElement.getAttribute('href') == null) {
-        anchor.nativeElement.style.display = 'none';
+        return anchor.nativeElement.style.display = 'none';
       }
+      return;
     })
   }
 }

@@ -12,6 +12,6 @@ export class NotificationComponent  {
   deleteNotification() {
     const button = document.querySelector('.delete');
     const $notification = button?.parentNode;
-    $notification?.parentNode?.removeChild($notification);
+    return $notification?.parentNode?.removeChild($notification);
   }
 }

@@ -34,7 +34,7 @@ export class NavigationComponent implements AfterViewInit, OnInit {
       }
     });
 
-    let dropdown = document.querySelector('.dropdown')!;
+    const dropdown = document.querySelector('.dropdown')!;
     dropdown.addEventListener('click', function(event) {
         event.stopPropagation();
         dropdown.classList.toggle('is-active');
@@ -78,11 +78,11 @@ export class NavigationComponent implements AfterViewInit, OnInit {
   }
 
   createSocialsSettingsButton() {
-    let buttons = document.querySelector('.cl-component.cl-user-button-popup')?.children[1].children[0];
+    const buttons = document.querySelector('.cl-component.cl-user-button-popup')?.children[1].children[0];
     buttons?.children[0].classList.add('order-1');
     buttons?.children[1].classList.add('order-3');
 
-    let newButton = document.createElement('a');
+    const newButton = document.createElement('a');
     newButton.id = 'socials';
     newButton.classList.add('_3bDedxNjPBtkn-BuP2nhY2','_11ZVSe2vGmcrGqZUhdWgXB', '_3roVnjNLYXA8oyjSMR_tyO', '_2eZklRe9WnyPiLM2T0R6XG', 'cl-accounts-manager-button', '_1WVBqxUEPjqhMKyLv7b558', 'order-2');
     newButton.style.display = 'flex';
@@ -94,7 +94,7 @@ export class NavigationComponent implements AfterViewInit, OnInit {
   }
 
   createSvg() {
-    let svgImage = document.createElement('img');
+    const svgImage = document.createElement('img');
     svgImage.src = 'assets/images/socials-icon.svg';
     svgImage.style.width = '2rem';
     svgImage.style.height = '2rem';

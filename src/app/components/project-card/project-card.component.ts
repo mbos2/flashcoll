@@ -11,7 +11,7 @@ export class ProjectCardComponent implements OnInit {
   @ViewChild('deleteButton', { static: false }) private deleteButton: ElementRef<HTMLButtonElement> | undefined;
   @Input() project: any;
 
-  tags: String[] = [];
+  // tags: String[] = [];
   user: User | undefined;
   ifProjectHasTags = true;
   noDescriptionClass: any;
@@ -39,6 +39,6 @@ export class ProjectCardComponent implements OnInit {
     // this.project.tags.split(',').forEach((tag: any) => {
     //   this.tags.push(` #${tag}`);
     // });
-    this.project.tags = this.tags.join(' ');
+    // this.project.tags = this.tags.join(' ');
   }
 }

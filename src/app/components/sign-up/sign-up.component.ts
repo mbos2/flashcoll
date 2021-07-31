@@ -24,7 +24,7 @@ export class SignUpComponent implements AfterViewInit {
         return;
       }
       this.harperDbService.generateUserSubprofileIfNotExist(user!.id);
-      this.clerk.unmountSignUp(el);
+      return this.clerk.unmountSignUp(el);
     })
   }
 

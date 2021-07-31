@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -9,9 +9,9 @@ import { NotificationsEnum } from 'app/enums/notificationMessagesEnum';
   templateUrl: './socials.component.html',
   styleUrls: ['./socials.component.sass']
 })
-export class SocialsComponent implements AfterViewInit, OnInit {
-  githubDisabled: boolean = true;
-  successIndicator: number = 0;
+export class SocialsComponent implements AfterViewInit {
+  githubDisabled = true;
+  successIndicator = 0;
   notificationMessage: any;
   subProfileForm = new FormGroup({
     id:  new FormControl(''), 
@@ -25,9 +25,6 @@ export class SocialsComponent implements AfterViewInit, OnInit {
   });
 
   constructor(private clerk: ClerkService, private harperDbService: HarperDbService) { }
-  ngOnInit(): void {
-
-  }
 
   ngAfterViewInit(): void {
     this.clerk.user$.subscribe(user => {
@@ -54,12 +51,14 @@ export class SocialsComponent implements AfterViewInit, OnInit {
         if (data.ok) {
           this.successIndicator = 1;
           this.notificationMessage = NotificationsEnum.profileUpdated;
+          return;
         } else {
           this.successIndicator = 2;
           this.notificationMessage = NotificationsEnum.Error;
+          return;
         }
       })
-      .catch(error => {
+      .catch(() => {
         this.successIndicator = 2;
         this.notificationMessage = NotificationsEnum.Error;
       });

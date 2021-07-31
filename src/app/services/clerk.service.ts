@@ -52,7 +52,7 @@ export class ClerkService {
     });
   }
 
-  public unMountUserButton(targetElement: HTMLDivElement, props?: UserButtonProps) {
+  public unMountUserButton(targetElement: HTMLDivElement) {
     this._loadedClerk$.subscribe(clerk => {
       clerk.unmountUserButton(targetElement)
     });
@@ -88,7 +88,7 @@ export class ClerkService {
     });
   }
 
-  public unmountUserProfile(targetElement: HTMLDivElement, props?: UserButtonProps) {
+  public unmountUserProfile(targetElement: HTMLDivElement) {
     this._loadedClerk$.subscribe(clerk => {
       clerk.unmountUserProfile(targetElement)
     });

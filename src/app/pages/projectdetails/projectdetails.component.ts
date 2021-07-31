@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
 import marked from 'marked';
 
 const gh = require('parse-github-url');
-const sharon = require('sharon');
 
 @Component({
   selector: 'app-projectdetails',
@@ -16,7 +15,7 @@ const sharon = require('sharon');
 export class ProjectdetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('deleteButton') private deleteButton: ElementRef<HTMLElement> | undefined;
   @ViewChild('closeModal') private closeModal: ElementRef<HTMLElement> | undefined;
-  public markdownContent: string = '';
+  public markdownContent = '';
   id: any;
   userID: any;
   userProfile: any;
@@ -52,21 +51,12 @@ export class ProjectdetailsComponent implements OnInit, AfterViewInit {
         this.markdownContent = marked(res);
       });
 
-    this.userID = await this.getUserIdFromProjectData(this.id);
+    this.userID = await this.getUserIdFromProjectData();
     await this.harperDbService.getUserSubProfileByGithubUsername(this.userGithubUsername)
       .then(result => {
         this.userProfile = result[0];
         this.mailTo = `mailto:${this.userProfile.email}`;
       })
-  }
-  
-  fb(event: any) {
-    this.$scope.href = sharon.facebook.href();
-    let e = event;
-    this.$scope.share = function (event: any) {
-      event.preventDefault();
-      sharon.facebook();
-    };
   }
 
   ngAfterViewInit(): void {
@@ -112,7 +102,7 @@ export class ProjectdetailsComponent implements OnInit, AfterViewInit {
         this.userGithubUsername = data[0].githubUsername
       });
     const githubUrl = gh(this.projectGithubURL);
-    let url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/README.md`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
+    const url = `https://api.github.com/repos/${githubUrl.owner}/${githubUrl.name}/contents/README.md`; // https://github.com/mbos2/flashcoll/blob/main/DESCRIPTION.md
     const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
@@ -129,7 +119,7 @@ export class ProjectdetailsComponent implements OnInit, AfterViewInit {
     return response.text();
   }
 
-  private async getUserIdFromProjectData(projectId: string) {
+  private async getUserIdFromProjectData() {
     let userId;
     await this.harperDbService.getProjectDetails(this.id)
       .then(result => {
@@ -141,7 +131,7 @@ export class ProjectdetailsComponent implements OnInit, AfterViewInit {
   }
 
   deleteProject() {
-    this.harperDbService.deleteProject(this.id)
-    this.router.navigate([`/profile/${this.userGithubUsername}`]); 
+    this.harperDbService.deleteProject(this.id);
+    return this.router.navigate([`/profile/${this.userGithubUsername}`]); 
   }
 }

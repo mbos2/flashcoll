@@ -7,10 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoaderComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit(): void {
-    let wrapper = document.querySelector('.loader-wrapper');
+    const wrapper = document.querySelector('.loader-wrapper');
     wrapper?.classList.add('.is-active');
   }
 

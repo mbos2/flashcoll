@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClerkService } from 'app/services/clerk.service';
 import { HarperDbService } from 'app/services/harperdb.service';
@@ -24,7 +24,7 @@ export class NewProjectComponent implements AfterViewInit {
   // @ViewChild('tags', { static: false }) private tags: ElementRef<HTMLInputElement> | undefined;
   @ViewChild('form', { static: false }) private form: ElementRef<HTMLElement> | undefined | null;
   isDisabled = true;
-  successIndicator: number = 0;
+  successIndicator = 0;
   notificationMessage: any;
   userRepositories: Array<GithubRepoData> = [];
   githubUsername: any;
@@ -46,7 +46,7 @@ export class NewProjectComponent implements AfterViewInit {
       this.projectData.patchValue({
         userID: user?.id       
       })
-      const repos = this.githubService.getUserRepositories(user?.data.external_accounts[0].provider_user_id)
+      this.githubService.getUserRepositories(user?.data.external_accounts[0].provider_user_id)
         .then(value => {
           return value.json()
       })
@@ -81,7 +81,7 @@ export class NewProjectComponent implements AfterViewInit {
     //   tags: arrayOfTags
     // })
 
-    await this.harperDbService.createNewProject(this.projectData.value)
+    return await this.harperDbService.createNewProject(this.projectData.value)
       .then(data => {
         console.log(data.body);
         if (data.ok) {          
@@ -107,7 +107,7 @@ export class NewProjectComponent implements AfterViewInit {
       if (repo.name == e.target.value)
         repository = repo;
     });
-    this.projectData.patchValue({
+    return this.projectData.patchValue({
       id: uuidv4(),
       projectTitle: repository.name,
       shortDescription: repository.description,
