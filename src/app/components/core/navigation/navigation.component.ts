@@ -20,12 +20,12 @@ export class NavigationComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     document.addEventListener('DOMContentLoaded', function () {
-    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
       if ($navbarBurgers.length > 0) {
         $navbarBurgers.forEach(function ($el) {
           $el.addEventListener('click', function () {
-            var target = $el.dataset.target;
-            var $target = document.getElementById(target);
+            const target = $el.dataset.target;
+            const $target = document.getElementById(target);
             $el.classList.toggle('is-active');
             // @ts-ignore
             $target.classList.toggle('is-active');
