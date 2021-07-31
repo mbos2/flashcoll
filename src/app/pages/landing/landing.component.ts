@@ -16,9 +16,9 @@ export class LandingComponent implements OnInit {
     "color": {
       "value": "#404040"
     },
-    "position": "50% 50%",
-    "repeat": "no-repeat",
-    "size": "cover"
+    // "position": "50% 50%",
+    // "repeat": "no-repeat",
+    // "size": "cover"
   },
   "fullScreen": {
     "enable": true,
