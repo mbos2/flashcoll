@@ -28,7 +28,9 @@
             "inlineStyleLanguage": "sass",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json",
+              "src/robots.txt"
             ],
             "styles": [
               "src/custom-theme.scss",
